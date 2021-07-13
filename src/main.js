@@ -6,6 +6,10 @@ import VueRouter from "vue-router"
 Vue.use(VueRouter);
 import {routes} from "./routes";
 
+// generate eui
+import ElementUI from "element-ui"
+import  "element-ui/lib/theme-chalk/index.css"//chalk主题
+Vue.use(ElementUI)
 Vue.config.productionTip = false
 
 var router =new VueRouter({
