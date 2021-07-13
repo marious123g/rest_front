@@ -1,4 +1,5 @@
 <template>
+  <!--store html-->
   <div class="btn">
     <div>
       <meta charset="UTF-8">
