@@ -83,7 +83,7 @@ export default {
   flex-direction: column;
   flex: 1 1 auto;
   max-width: 100%;
-
+  /*background-color:rgba(0,0,0,0.4);*/
   background-size: cover;
 }
 .login-page {

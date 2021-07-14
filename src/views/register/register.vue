@@ -1,109 +1,119 @@
 <template>
   <div class="login-wrap">
-    <el-form label-width="100px" class="demo-ruleForm reg-container">
-      <h3 style="text-align: center;">尊敬的顾客，请注册</h3>
+    <div class="login-container">
+      <el-form :model="ruleForm2" :rules="rules2"
+               status-icon
+               ref="ruleForm2"
+               label-position="left"
+               label-width="0px"
+               class="demo-ruleForm login-page">
+        <h2 class="title" style="text-align:center;margin:0px auto 20px">欢迎注册</h2>
+        <el-form-item prop="username">
+          <el-input type="text"
+                    v-model="ruleForm2.username"
+                    placeholder="用户名"
+                    suffix-icon="el-icon-user">
+          </el-input>
+        </el-form-item>
+        <el-form-item prop="password">
+          <el-input type="password"
+                    v-model="ruleForm2.password"
+                    auto-complete="off"
+                    placeholder="密码"
+                    suffix-icon="el-icon-unlock">
+          </el-input>
+        </el-form-item>
+        <el-form-item prop="re_password">
+          <el-input type="password"
+                    v-model="ruleForm2.re_password"
+                    auto-complete="off"
+                    placeholder="确认密码"
+                    suffix-icon="el-icon-unlock">
+          </el-input>
+        </el-form-item>
+        <el-checkbox
+            v-model="checked"
+            class="rememberme">
+          记住密码
+        </el-checkbox>
+        <el-button type="primary" style="width:100%;" @click="handleSubmit" :loading="logining">
+          确认注册
+        </el-button>
+        <el-form-item style="width:100%;text-align:center;">
+          <el-link href="./login.html" target="_blank" :underline="false">
+            用户登录
+          </el-link>
+          &nbsp;|&nbsp;
+          <el-link href="./fogetPassword.html" target="_blank" :underline="false">
+            忘记密码
+          </el-link>
 
-      <el-form-item label="用户名"  class="input-item" >
-<!--        不写v-model会不能输入文字，不过写了又得在script定义，就很烦-->
-        <el-input v-model="user_info.username" placeholder="请输入用户名"
-                  suffix-icon="el-icon-s-custom">
-        </el-input>
-      </el-form-item>
+        </el-form-item>
 
-      <el-form-item label="密码" class="input-item">
-        <el-input v-model="user_info.password" type="password" placeholder="请输入密码"
-        suffix-icon="el-icon-unlock">
-
-        </el-input>
-      </el-form-item>
-
-      <el-form-item label="确认密码" class="input-item">
-        <el-input v-model="pw_confirm" type="password"></el-input>
-      </el-form-item>
-
-      <el-form-item>
-        <el-row>
-          <el-col :span="24">
-            <div class="grid-content bg-purple-dark">
-              <el-button type="primary" icon="el-icon-check" style="width:100% ;">确认注册</el-button>
-            </div>
-          </el-col>
-        </el-row>
-
-        <el-row>
-          <el-col :span="12">
-            <div class="grid-content bg-purple-dark">
-              <el-link type="success">用户登录</el-link>
-            </div>
-          </el-col>
-          <el-col :span="12">
-            <div class="grid-content bg-purple-dark">
-              <el-link type="success">忘记密码</el-link>
-            </div>
-          </el-col>
-        </el-row>
-      </el-form-item>
-    </el-form>
+      </el-form>
+    </div>
   </div>
-
 </template>
 
 <script>
 export default {
-  name: "register",
-  data  () {
+  data(){
     return {
-      user_info: {
-      username:"",
-      password:"",
+      logining: false,
+      ruleForm2: {
+        username: '',
+        password: '',
+        re_password:'',
       },
-    pw_confirm:"",
+      rules2: {
+        username: [{required: true, message: '请输入用户名', trigger: 'blur'}],
+        password: [{required: true, message: '请输入密码', trigger: 'blur'}],
+        re_password: [{required: true, message: '请输入密码', trigger: 'blur'}]
+      },
+      checked: false
     }
   },
+  methods: {
 
-}
+  }
+};
 </script>
-<!--我把scoped去掉了，因为要改label颜色-->
-<style>
-h3{
-  color: #114450;
-}
+
+<style scoped>
 .login-wrap {
-  position:fixed;
-  min-width: 1000px;
-  box-sizing: border-box;
-  width: 100%;
-  height: 100%;
-  /*让图片随屏幕大小同步缩放，但是有部分可能会被裁切，不过不至于会露白*/
-  background-size: cover;
-  -webkit-background-size: cover;
-  -o-background-size: cover;
-  padding-top: 10%;
-  /*'/' means root*/
-  /*这里我强烈建议图片放在同一个目录下*/
-  background-image: url("./login-bg.jpg") ;
+  display: flex;
+  flex-direction: column;
+  background-image: url("./login-bg.jpg");
   background-repeat: no-repeat;
-  background-position: center right;
-  /*background-size: 100%;*/
+  margin: 0 auto;
+  width: 100%;
+  min-width: 320px;
+  min-height: 100vh;
 }
-
-.reg-container {
-  /*圆角*/
-  border-radius: 10px;
-  /*外边距*/
-  margin: 20px auto;
+.login-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  max-width: 100%;
+  /*background-color:rgba(0,0,0,0.4);*/
+  background-size: cover;
+}
+.login-page {
+  top: calc(50% - 182.5px);
+  position: absolute;
+  right: 0px;
+  left: 0px;
+  margin: auto;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
   width: 350px;
-  /*内边距*/
-  padding: 40px 35px 15px 30px;
-  background: #fff;
+  padding: 35px 35px 15px;
+  background: #ffffff;
   border: 1px solid #eaeaea;
+  box-shadow: 0 0 25px #cac6c6;
+}
+label.el-checkbox.rememberme {
+  margin: 0px 0px 15px;
   text-align: left;
-  box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.1);
-  /*opacity: 1;*/
 }
-/*这里有个空格！！！！！！*/
-.input-item .el-form-item__label{
-  color:#114450;
-}
-
 </style>
