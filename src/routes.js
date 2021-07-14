@@ -2,6 +2,8 @@
 import test from "./views/test.vue"
 import login from "@/views/login/login";
 import order from "@/views/order/order";
+import index from "./views/index";
+import register from "@/views/register/register";
 
 var routes=[
     // 2. add this
@@ -19,6 +21,14 @@ var routes=[
     {
       path: "/order.html",
       component: order,
+    },
+    {
+        path: "/",
+        component: index,
+    },
+    {
+        path: "/register.html",
+        component: register,
     }
 ]
 export {routes};

@@ -5,9 +5,6 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-      <link rel="stylesheet" href="style.css">
-
-      <title>登录:微信公众号AlbertYang</title>
     </div>
 
     <body>
@@ -29,15 +26,21 @@
             <h2>登录</h2>
             <form>
               <div class="inputBox">
-                <input type="text" placeholder="姓名">
+                <input type="text" placeholder="用户名">
 
               </div>
               <div class="inputBox">
                 <input type="password" placeholder="密码">
 
               </div>
-              <div class="inputBox">
-                <input type="submit" value="登录">
+              <div class="inputBox" id="customer_login">
+                <input type="submit" value="顾客登录">
+
+              </div>
+
+              <!--id对应css是用样式选择符“#”；class对应css是用样式选择符“.”-->
+              <div class="inputBox" id="staff_login">
+                <input type="submit" value="员工登录">
 
               </div>
               <p class="forget">忘记密码?<a href="#">
@@ -250,7 +253,7 @@ section .color:nth-child(3) {
 
 .form .inputBox {
   width: 100%;
-  margin-top: 20px;
+  margin-top: 20px;/*调大登录框会变长*/
 }
 
 /* 输入框样式 */
@@ -280,7 +283,7 @@ section .color:nth-child(3) {
 .form .inputBox input[type="submit"] {
   background: #fff;
   color: #666;
-  max-width: 100px;
+  max-width: 300px;/*能调整按钮的长度，300就和前面的输入框一样长*/
   margin-bottom: 20px;
   font-weight: 600;
   cursor: pointer;
