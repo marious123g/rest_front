@@ -1,304 +1,107 @@
 <template>
-  <!--store html-->
-  <div class="btn">
-    <div>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <div class="login-wrap">
+    <div class="login-container">
+      <el-form :model="ruleForm2" :rules="rules2"
+               status-icon
+               ref="ruleForm2"
+               label-position="left"
+               label-width="0px"
+               class="demo-ruleForm login-page">
+        <h2 class="title" style="text-align:center;">餐厅点餐系统登录</h2>
+        <el-form-item prop="username">
+          <el-input type="text"
+                    v-model="ruleForm2.username"
+                    placeholder="用户名">
+          </el-input>
+        </el-form-item>
+        <el-form-item prop="password">
+          <el-input type="password"
+                    v-model="ruleForm2.password"
+                    auto-complete="off"
+                    placeholder="密码">
+          </el-input>
+        </el-form-item>
+        <el-checkbox
+            v-model="checked"
+            class="rememberme">
+          记住密码
+        </el-checkbox>
+        <el-button type="primary" style="width:100%;" @click="handleSubmit" :loading="logining">
+          登录
+        </el-button>
+        <el-form-item style="width:100%;text-align:center;">
+          <el-link href="./register.html" target="_blank" :underline="false">
+            新用户注册
+          </el-link>
+          &nbsp;|&nbsp;
+          <el-link href="./fogetPassword.html" target="_blank" :underline="false">
+            忘记密码
+          </el-link>
 
+        </el-form-item>
+
+      </el-form>
     </div>
-
-    <body>
-    <section>
-      <!-- 背景颜色 -->
-      <div class="color"></div>
-      <div class="color"></div>
-      <div class="color"></div>
-      <div class="box">
-        <!-- 背景圆 -->
-        <div class="circle" style="--x:0"></div>
-        <div class="circle" style="--x:1"></div>
-        <div class="circle" style="--x:2"></div>
-        <div class="circle" style="--x:3"></div>
-        <div class="circle" style="--x:4"></div>
-        <!-- 登录框 -->
-        <div class="container">
-          <div class="form">
-            <h2>登录</h2>
-            <form>
-              <div class="inputBox">
-                <input type="text" placeholder="用户名">
-
-              </div>
-              <div class="inputBox">
-                <input type="password" placeholder="密码">
-
-              </div>
-              <div class="inputBox" id="customer_login">
-                <input type="submit" value="顾客登录">
-
-              </div>
-
-              <!--id对应css是用样式选择符“#”；class对应css是用样式选择符“.”-->
-              <div class="inputBox" id="staff_login">
-                <input type="submit" value="员工登录">
-
-              </div>
-              <p class="forget">忘记密码?<a href="#">
-                点击这里
-              </a></p>
-              <p class="forget">没有账户?<a href="#">
-                注册
-              </a></p>
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
-    </body>
-
   </div>
-
 </template>
 
 <script>
 export default {
-  name: "login"
-}
+  data(){
+    return {
+      logining: false,
+      ruleForm2: {
+        username: '',
+        password: '',
+      },
+      rules2: {
+        username: [{required: true, message: '请输入用户名', trigger: 'blur'}],
+        password: [{required: true, message: '请输入密码', trigger: 'blur'}]
+      },
+      checked: false
+    }
+  },
+  methods: {
+
+  }
+};
 </script>
 
 <style scoped>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* 使用flex布局，让内容垂直和水平居中 */
-
-section {
-  /* 相对定位 */
-  position: relative;
-  overflow: hidden;
+.login-wrap {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  background-image: url("./login-bg.jpg");
+  background-repeat: no-repeat;
+  margin: 0 auto;
+  width: 100%;
+  min-width: 320px;
   min-height: 100vh;
-  /* linear-gradient() 函数用于创建一个表示两种或多种颜色线性渐变的图片 */
-  background: linear-gradient(to bottom, #f1f4f9, #dff1ff);
 }
-
-/* 背景颜色 */
-
-section .color {
-  /* 绝对定位 */
-  position: absolute;
-  /* 使用filter(滤镜) 属性，给图像设置高斯模糊*/
-  filter: blur(200px);
-}
-
-/* :nth-child(n) 选择器匹配父元素中的第 n 个子元素 */
-
-section .color:nth-child(1) {
-  top: -350px;
-  width: 600px;
-  height: 600px;
-  background: #ff359b;
-}
-
-section .color:nth-child(2) {
-  bottom: -150px;
-  left: 100px;
-  width: 500px;
-  height: 500px;
-  background: #fffd87;
-}
-
-section .color:nth-child(3) {
-  bottom: 50px;
-  right: 100px;
-  width: 500px;
-  height: 500px;
-  background: #00d2ff;
-}
-
-.box {
-  position: relative;
-}
-
-/* 背景圆样式 */
-
-.box .circle {
-  position: absolute;
-  background: rgba(255, 255, 255, 0.1);
-  /* backdrop-filter属性为一个元素后面区域添加模糊效果 */
-  backdrop-filter: blur(5px);
-  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  border-right: 1px solid rgba(255, 255, 255, 0.2);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-  /* 使用filter(滤镜) 属性，改变颜色。
-  hue-rotate(deg)  给图像应用色相旋转
-  calc() 函数用于动态计算长度值
-  var() 函数调用自定义的CSS属性值x*/
-  filter: hue-rotate(calc(var(--x) * 70deg));
-  /* 调用动画animate，需要10s完成动画，
-  linear表示动画从头到尾的速度是相同的，
-  infinite指定动画应该循环播放无限次*/
-  animation: animate 10s linear infinite;
-  /* 动态计算动画延迟几秒播放 */
-  animation-delay: calc(var(--x) * -1s);
-}
-
-/* 背景圆动画 */
-
-@keyframes animate {
-  0%, 100% {
-    transform: translateY(-50px);
-  }
-  50% {
-    transform: translateY(50px);
-  }
-}
-
-.box .circle:nth-child(1) {
-  top: -50px;
-  right: -60px;
-  width: 100px;
-  height: 100px;
-}
-
-.box .circle:nth-child(2) {
-  top: 150px;
-  left: -100px;
-  width: 120px;
-  height: 120px;
-  z-index: 2;
-}
-
-.box .circle:nth-child(3) {
-  bottom: 50px;
-  right: -60px;
-  width: 80px;
-  height: 80px;
-  z-index: 2;
-}
-
-.box .circle:nth-child(4) {
-  bottom: -80px;
-  left: 100px;
-  width: 60px;
-  height: 60px;
-}
-
-.box .circle:nth-child(5) {
-  top: -80px;
-  left: 140px;
-  width: 60px;
-  height: 60px;
-}
-
-/* 登录框样式 */
-
-.container {
-  position: relative;
-  width: 400px;
-  min-height: 400px;
-  background: rgba(255, 255, 255, 0.1);
+.login-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  backdrop-filter: blur(5px);
-  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  border-right: 1px solid rgba(255, 255, 255, 0.2);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  flex-direction: column;
+  flex: 1 1 auto;
+  max-width: 100%;
+
+  background-size: cover;
 }
-
-.form {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  padding: 50px;
-}
-
-/* 登录标题样式 */
-
-.form h2 {
-  position: relative;
-  color: #fff;
-  font-size: 24px;
-  font-weight: 600;
-  letter-spacing: 5px;
-  margin-bottom: 30px;
-  cursor: pointer;
-}
-
-/* 登录标题的下划线样式 */
-
-.form h2::before {
-  content: "";
+.login-page {
+  top: calc(50% - 182.5px);
   position: absolute;
-  left: 0;
-  bottom: -10px;
-  width: 0px;
-  height: 3px;
-  background: #fff;
-  transition: 0.5s;
+  right: 0px;
+  left: 0px;
+  margin: auto;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  width: 350px;
+  padding: 35px 35px 15px;
+  background: #ffffff;
+  border: 1px solid #eaeaea;
+  box-shadow: 0 0 25px #cac6c6;
 }
-
-.form h2:hover:before {
-  width: 53px;
+label.el-checkbox.rememberme {
+  margin: 0px 0px 15px;
+  text-align: left;
 }
-
-.form .inputBox {
-  width: 100%;
-  margin-top: 20px;/*调大登录框会变长*/
-}
-
-/* 输入框样式 */
-
-.form .inputBox input {
-  width: 100%;
-  padding: 10px 20px;
-  background: rgba(255, 255, 255, 0.2);
-  outline: none;
-  border: none;
-  border-radius: 30px;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  border-right: 1px solid rgba(255, 255, 255, 0.2);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  font-size: 16px;
-  letter-spacing: 1px;
-  color: #fff;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-}
-
-.form .inputBox input::placeholder {
-  color: #fff;
-}
-
-/* 登录按钮样式 */
-
-.form .inputBox input[type="submit"] {
-  background: #fff;
-  color: #666;
-  max-width: 300px;/*能调整按钮的长度，300就和前面的输入框一样长*/
-  margin-bottom: 20px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.forget {
-  margin-top: 6px;
-  color: #fff;
-  letter-spacing: 1px;
-}
-
-.forget a {
-  color: #fff;
-  font-weight: 600;
-  text-decoration: none;
-}
-
 </style>

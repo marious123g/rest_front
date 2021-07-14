@@ -3,22 +3,22 @@
     <el-form label-width="100px" class="demo-ruleForm reg-container">
       <h3 style="text-align: center;">尊敬的顾客，请注册</h3>
 
-      <el-form-item label="用户名" class="input-item">
+      <el-form-item label="用户名"  class="input-item" >
 <!--        不写v-model会不能输入文字，不过写了又得在script定义，就很烦-->
-        <el-input placeholder="请输入用户名"
+        <el-input v-model="user_info.username" placeholder="请输入用户名"
                   suffix-icon="el-icon-s-custom">
         </el-input>
       </el-form-item>
 
       <el-form-item label="密码" class="input-item">
-        <el-input type="password" placeholder="请输入密码"
+        <el-input v-model="user_info.password" type="password" placeholder="请输入密码"
         suffix-icon="el-icon-unlock">
 
         </el-input>
       </el-form-item>
 
       <el-form-item label="确认密码" class="input-item">
-        <el-input type="password"></el-input>
+        <el-input v-model="pw_confirm" type="password"></el-input>
       </el-form-item>
 
       <el-form-item>
@@ -50,7 +50,17 @@
 
 <script>
 export default {
-  name: "register"
+  name: "register",
+  data  () {
+    return {
+      user_info: {
+      username:"",
+      password:"",
+      },
+    pw_confirm:"",
+    }
+  },
+
 }
 </script>
 <!--我把scoped去掉了，因为要改label颜色-->
@@ -59,18 +69,22 @@ h3{
   color: #114450;
 }
 .login-wrap {
+  position:fixed;
+  min-width: 1000px;
   box-sizing: border-box;
   width: 100%;
   height: 100%;
+  /*让图片随屏幕大小同步缩放，但是有部分可能会被裁切，不过不至于会露白*/
+  background-size: cover;
+  -webkit-background-size: cover;
+  -o-background-size: cover;
   padding-top: 10%;
-  /*opacity: 0.3;*/
-  /*background-color: #FF929A;*/
   /*'/' means root*/
   /*这里我强烈建议图片放在同一个目录下*/
   background-image: url("./login-bg.jpg") ;
   background-repeat: no-repeat;
   background-position: center right;
-  background-size: 100%;
+  /*background-size: 100%;*/
 }
 
 .reg-container {
