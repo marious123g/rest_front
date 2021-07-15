@@ -94,8 +94,8 @@ export default {
       this.$refs.loginForm.validate((valid) => {
         if(valid){
           this.logining = true;
-          if(this.loginForm.username !== '' &&
-              this.loginForm.password !== ''){
+          if(this.loginForm.username === 'admin' &&
+              this.loginForm.password === 'admin'){
             this.logining = false;
             sessionStorage.setItem('username', this.loginForm.username);
             sessionStorage.setItem('custom',false);
@@ -128,7 +128,7 @@ body{
   width: 100%;
   min-width: 320px;
   min-height: 100vh;
-  background-image: url("./login-bg.jpg");
+  background-image: url("../assets/img/login-bg.jpg");
   background-size: cover;
 }
 .login-container {

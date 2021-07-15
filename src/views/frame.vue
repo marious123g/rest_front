@@ -17,15 +17,19 @@
           </el-dropdown>
         </el-header>
         <el-main>
-          <el-breadcrumb separator="/" class="crumbs">
-            <el-breadcrumb-item :to="{ path: '/login.html' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item>活动管理</el-breadcrumb-item>
-            <el-breadcrumb-item>活动列表</el-breadcrumb-item>
-            <el-breadcrumb-item>活动详情</el-breadcrumb-item>
-          </el-breadcrumb>
+<!--          this menu can be moved to the worksheet-->
+<!--          <el-breadcrumb separator="/" class="crumbs">-->
+<!--            <el-breadcrumb-item :to="{ path: '/login.html' }">首页</el-breadcrumb-item>-->
+<!--            <el-breadcrumb-item>主食</el-breadcrumb-item>-->
+<!--            <el-breadcrumb-item>凉菜</el-breadcrumb-item>-->
+<!--            <el-breadcrumb-item>酒水</el-breadcrumb-item>-->
+<!--          </el-breadcrumb>-->
           <div>
             <router-view></router-view>
           </div>
+          <el-container class="worksheet">
+            <customer></customer>
+          </el-container>
         </el-main>
         <el-footer class="main-footer" height="50px">
           <p>页脚</p>
@@ -122,9 +126,11 @@ $color: #FFF;
 
 <script>
 import Sidebar from "@/components/Sidebar";
+import Customer from "@/components/customer";
 export default {
 
   components:{
+    Customer,
     Sidebar,
   },
   data() {

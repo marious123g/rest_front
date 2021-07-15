@@ -83,7 +83,7 @@ export default {
 .login-wrap {
   display: flex;
   flex-direction: column;
-  background-image: url("./login-bg.jpg");
+  background-image: url("../assets/img/login-bg.jpg");
   background-repeat: no-repeat;
   margin: 0 auto;
   width: 100%;

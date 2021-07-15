@@ -1,10 +1,11 @@
 // 1. write this
-import frame from "@/views/frame";
-import login from "@/views/login/login";
-import order from "@/views/order/order";
-import index from "./views/index";
-import register from "@/views/register/register";
-import admin from "@/views/admin/admin";
+import frame from "@/views/frame.vue";
+import login from "@/views/login.vue";
+import order from "@/views/order.vue";
+import register from "@/views/register.vue";
+import admin from "@/views/admin.vue";
+import customer from "@/components/customer";
+
 var routes=[
     // 2. add this
     // one url indicates one page
@@ -24,7 +25,7 @@ var routes=[
     },
     {
         path: "/",
-        component: index,
+        component: login,
     },
     {
         path: "/register.html",
@@ -33,6 +34,10 @@ var routes=[
     {
         path: "/admin.html",
         component: admin,
+    },
+    {
+        path: "/customer.html",
+        component: customer,
     }
 ]
 export {routes};
