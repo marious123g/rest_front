@@ -10,14 +10,14 @@
         <h2 class="title" style="text-align:center;margin:0px auto 20px">欢迎注册</h2>
         <el-form-item prop="username">
           <el-input type="text"
-                    v-model="ruleForm2.username"
+                    v-model="regFrom.username"
                     placeholder="用户名"
                     suffix-icon="el-icon-user">
           </el-input>
         </el-form-item>
         <el-form-item prop="password">
           <el-input type="password"
-                    v-model="ruleForm2.password"
+                    v-model="regFrom.password"
                     auto-complete="off"
                     placeholder="密码"
                     suffix-icon="el-icon-unlock">
@@ -25,7 +25,7 @@
         </el-form-item>
         <el-form-item prop="re_password">
           <el-input type="password"
-                    v-model="ruleForm2.re_password"
+                    v-model="regFrom.re_password"
                     auto-complete="off"
                     placeholder="确认密码"
                     suffix-icon="el-icon-unlock">
@@ -60,7 +60,7 @@ export default {
   data(){
     return {
       logining: false,
-      ruleForm2: {
+      regFrom: {
         username: '',
         password: '',
         re_password:'',
@@ -68,7 +68,7 @@ export default {
       rules2: {
         username: [{required: true, message: '请输入用户名', trigger: 'blur'}],
         password: [{required: true, message: '请输入密码', trigger: 'blur'}],
-        re_password: [{required: true, message: '请输入密码', trigger: 'blur'}]
+        re_password: [{required: true, message: '请再次输入密码', trigger: 'blur'}]
       },
       checked: false
     }

@@ -1,33 +1,38 @@
 <template>
   <div class="login-wrap">
     <div class="login-container">
-      <el-form :model="ruleForm2" :rules="rules2"
+      <el-form :model="loginForm" :rules="rules2"
                status-icon
-               ref="ruleForm2"
+               ref="loginForm"
                label-position="left"
                label-width="0px"
                class="demo-ruleForm login-page">
-        <h2 class="title" style="text-align:center;">餐厅点餐系统登录</h2>
+        <h2 class="title" style="text-align:center;margin:0px auto 20px">
+          餐厅点餐系统登录
+        </h2>
         <el-form-item prop="username">
           <el-input type="text"
-                    v-model="ruleForm2.username"
+                    v-model="loginForm.username"
                     placeholder="用户名">
           </el-input>
         </el-form-item>
         <el-form-item prop="password">
           <el-input type="password"
-                    v-model="ruleForm2.password"
+                    v-model="loginForm.password"
                     auto-complete="off"
                     placeholder="密码">
           </el-input>
         </el-form-item>
         <el-checkbox
-            v-model="checked"
+            v-model="remember"
             class="rememberme">
           记住密码
         </el-checkbox>
-        <el-button type="primary" style="width:100%;" @click="handleSubmit" :loading="logining">
-          登录
+        <el-button type="primary" style="width:100%;margin:0px auto 15px" @click="customLogin" :loading="logining">
+          顾客登录
+        </el-button>
+        <el-button type="primary" plain style="width:100%;margin:0px auto 5px" @click="staffLogin" :loading="logining">
+          员工登录
         </el-button>
         <el-form-item style="width:100%;text-align:center;">
           <el-link href="./register.html" target="_blank" :underline="false">
@@ -50,41 +55,86 @@ export default {
   data(){
     return {
       logining: false,
-      ruleForm2: {
+      loginForm: {
         username: '',
         password: '',
+        remember: false
       },
       rules2: {
         username: [{required: true, message: '请输入用户名', trigger: 'blur'}],
         password: [{required: true, message: '请输入密码', trigger: 'blur'}]
-      },
-      checked: false
+      }
     }
   },
   methods: {
-
+    customLogin(){
+      this.$refs.loginForm.validate((valid) => {
+        if(valid){
+          this.logining = true;
+          if(this.loginForm.username !== '' &&
+              this.loginForm.password !== ''){
+            this.logining = false;
+            sessionStorage.setItem('username', this.loginForm.username);
+            sessionStorage.setItem('custom',true);
+            sessionStorage.setItem('staff',false);
+            this.$router.push({path: '/frame.html'});
+          }else{
+            this.logining = false;
+            this.$alert('用户名或密码错误！', '提示', {
+              confirmButtonText: 'ok'
+            })
+          }
+        }else{
+          console.log('error submit!');
+          return false;
+        }
+      })
+    },
+    staffLogin(){
+      this.$refs.loginForm.validate((valid) => {
+        if(valid){
+          this.logining = true;
+          if(this.loginForm.username !== '' &&
+              this.loginForm.password !== ''){
+            this.logining = false;
+            sessionStorage.setItem('username', this.loginForm.username);
+            sessionStorage.setItem('custom',false);
+            sessionStorage.setItem('staff',true);
+            this.$router.push({path: '/frame.html'});
+          }else{
+            this.logining = false;
+            this.$alert('用户名或密码错误！', '提示', {
+              confirmButtonText: 'ok'
+            })
+          }
+        }else{
+          console.log('error submit!');
+          return false;
+        }
+      })
+    }
   }
 };
 </script>
 
 <style scoped>
+body{
+  margin: 0px;
+}
 .login-wrap {
   display: flex;
   flex-direction: column;
-  background-image: url("./login-bg.jpg");
-  background-repeat: no-repeat;
   margin: 0 auto;
   width: 100%;
   min-width: 320px;
   min-height: 100vh;
+  background-image: url("./login-bg.jpg");
+  background-size: cover;
 }
 .login-container {
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
-  max-width: 100%;
-  /*background-color:rgba(0,0,0,0.4);*/
-  background-size: cover;
 }
 .login-page {
   top: calc(50% - 182.5px);
@@ -95,7 +145,7 @@ export default {
   -webkit-border-radius: 5px;
   border-radius: 5px;
   width: 350px;
-  padding: 35px 35px 15px;
+  padding: 35px 35px 0px;
   background: #ffffff;
   border: 1px solid #eaeaea;
   box-shadow: 0 0 25px #cac6c6;

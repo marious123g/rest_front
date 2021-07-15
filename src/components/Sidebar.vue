@@ -1,154 +1,138 @@
 <template>
-    <div class="sidebar">
-        <el-menu class="sidebar-el-menu" :default-active="onRoutes" :collapse="collapse" background-color="#324157"
-            text-color="#bfcbd9" active-text-color="#20a0ff" unique-opened router>
-            <template v-for="item in items">
-                <template v-if="item.subs">
-                    <el-submenu :index="item.index" :key="item.index">
-                        <template #title>
-                            <i :class="item.icon"></i>
-                            <span>{{ item.title }}</span>
-                        </template>
-                        <template v-for="subItem in item.subs">
-                            <el-submenu v-if="subItem.subs" :index="subItem.index" :key="subItem.index">
-                                <template #title>{{ subItem.title }}</template>
-                                <el-menu-item v-for="(threeItem, i) in subItem.subs" :key="i" :index="threeItem.index">
-                                    {{ threeItem.title }}</el-menu-item>
-                            </el-submenu>
-                            <el-menu-item v-else :index="subItem.index" :key="subItem.index">{{ subItem.title }}
-                            </el-menu-item>
-                        </template>
-                    </el-submenu>
-                </template>
-                <template v-else>
-                    <el-menu-item :index="item.index" :key="item.index">
-                        <i :class="item.icon"></i>
-                        <template #title>{{ item.title }}</template>
-                    </el-menu-item>
-                </template>
-            </template>
-        </el-menu>
+  <div>
+    <div class="isClossTab" @click="isClossTabFun">
+      <i :class="isCollapse?'el-icon-d-arrow-right':'el-icon-d-arrow-left'" ></i>
     </div>
+    <el-menu :class="'menu'"
+             default-active="1-4-1"
+             class="el-menu-vertical-demo"
+             @open="handleOpen"
+             @close="handleClose"
+             :collapse="isCollapse"
+             background-color="#545c64"
+             text-color="#fff"
+             active-text-color="#ffd04b"
+    >
+      <el-submenu index="1">
+        <template slot="title">
+          <i class="el-icon-location"></i>
+          <span slot="title">导航一</span>
+        </template>
+        <el-menu-item-group>
+          <span slot="title">分组一</span>
+          <el-menu-item index="1-1">选项1</el-menu-item>
+          <el-menu-item index="1-2">选项2</el-menu-item>
+        </el-menu-item-group>
+        <el-menu-item-group title="分组2">
+          <el-menu-item index="1-3">选项3</el-menu-item>
+        </el-menu-item-group>
+        <el-submenu index="1-4">
+          <span slot="title">选项4</span>
+          <el-menu-item index="1-4-1">选项1</el-menu-item>
+        </el-submenu>
+      </el-submenu>
+      <el-menu-item index="2">
+        <i class="el-icon-menu"></i>
+        <span slot="title">导航二</span>
+      </el-menu-item>
+      <el-menu-item index="3">
+        <i class="el-icon-setting"></i>
+        <span slot="title">导航三</span>
+      </el-menu-item>
+    </el-menu>
+  </div>
 </template>
 
 <script>
-import { computed, watch } from "vue";
-import { useStore } from "vuex";
-import { useRoute } from "vue-router";
 export default {
-    setup() {
-        const items = [
-            {
-                icon: "el-icon-lx-home",
-                index: "/dashboard",
-                title: "系统首页",
-            },
-            {
-                icon: "el-icon-lx-cascades",
-                index: "/table",
-                title: "基础表格",
-            },
-            {
-                icon: "el-icon-lx-copy",
-                index: "/tabs",
-                title: "tab选项卡",
-            },
-            {
-                icon: "el-icon-lx-calendar",
-                index: "3",
-                title: "表单相关",
-                subs: [
-                    {
-                        index: "/form",
-                        title: "基本表单",
-                    },
-                    {
-                        index: "/upload",
-                        title: "文件上传",
-                    },
-                    {
-                        index: "4",
-                        title: "三级菜单",
-                        subs: [
-                            {
-                                index: "/editor",
-                                title: "富文本编辑器",
-                            },
-                        ],
-                    },
-                ],
-            },
-            {
-                icon: "el-icon-lx-emoji",
-                index: "/icon",
-                title: "自定义图标",
-            },
-            {
-                icon: "el-icon-pie-chart",
-                index: "/charts",
-                title: "schart图表",
-            },
-            {
-                icon: "el-icon-lx-global",
-                index: "/i18n",
-                title: "国际化功能",
-            },
-            {
-                icon: "el-icon-lx-warn",
-                index: "7",
-                title: "错误处理",
-                subs: [
-                    {
-                        index: "/permission",
-                        title: "权限测试",
-                    },
-                    {
-                        index: "/404",
-                        title: "404页面",
-                    },
-                ],
-            },
-            {
-                icon: "el-icon-lx-redpacket_fill",
-                index: "/donate",
-                title: "支持作者",
-            },
-        ];
-
-        const route = useRoute();
-
-        const onRoutes = computed(() => {
-            return route.path;
-        });
-
-        const store = useStore();
-        const collapse = computed(() => store.state.collapse);
-
-        return {
-            items,
-            onRoutes,
-            collapse,
-        };
+  methods: {
+    handleOpen(key, keyPath) {
+      console.log(key, keyPath);
     },
-};
+    handleClose(key, keyPath) {
+      console.log(key, keyPath);
+    }
+  }
+}
 </script>
 
-<style scoped>
-.sidebar {
-    display: block;
-    position: absolute;
-    left: 0;
-    top: 70px;
-    bottom: 0;
-    overflow-y: scroll;
+<style>
+*{
+  padding: 0;
+  margin: 0;
 }
-.sidebar::-webkit-scrollbar {
-    width: 0;
-}
-.sidebar-el-menu:not(.el-menu--collapse) {
-    width: 250px;
-}
-.sidebar > ul {
+
+</style>
+<style scoped lang="scss">
+$header-height:60px;
+$background-color: #545c64;
+$color: #FFF;
+
+.main{
+  height: 100vh;
+  min-width: 800px;
+  min-height: 600px;
+  overflow: hidden;
+
+  aside{
+    overflow: visible;
     height: 100%;
+    background-color: $background-color;
+    color: $color;
+
+    .isClossTab{
+      width: 100%;
+      height: $header-height;
+      cursor: pointer;
+      font-size: 25px;
+      text-align: center;
+      line-height: $header-height;
+      font-weight: bold;
+      border-right: 1px solid #807c7c;
+      box-sizing: border-box;
+    }
+    .menu {
+      width: 100%;
+      border-right:0;
+
+
+    }
+
+  }
+
+  .main-header {
+    background-color: $background-color;
+    color: $color;
+
+    .el-dropdown{
+      cursor: pointer;
+      float: right;
+    }
+    .el-dropdown-link{
+
+      img{
+        $imgMargin: (($header-height - 50)/2);
+        display:inline-block;
+        width:50px;
+        height: 50px;
+        border-radius: 25px;
+        background-color: #F4E5D7;
+        margin-top: $imgMargin;
+      }
+    }
+  }
+
+  .crumbs {
+    margin-bottom: 20px;
+  }
+
+  .main-footer{
+    text-align: center;
+    background-color: $background-color;
+    color: $color;
+    line-height: 50px;
+  }
+
 }
+
 </style>
