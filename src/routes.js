@@ -4,7 +4,9 @@ import login from "@/views/login.vue";
 import order from "@/views/order.vue";
 import register from "@/views/register.vue";
 import admin from "@/views/admin.vue";
-import customer from "@/components/customer";
+import DishesMainCourse from "@/components/dishes/DishesMainCourse";
+import test from "@/views/test";
+import test1 from "@/views/test1";
 
 var routes=[
     // 2. add this
@@ -36,8 +38,16 @@ var routes=[
         component: admin,
     },
     {
-        path: "/customer.html",
-        component: customer,
+        path: "/DishesMainCourse.html",
+        component: DishesMainCourse,
+    },
+    {
+        path: "/test.html",
+        component: test,
+    },
+    {
+        path: "/test1.html",
+        component: test1,
     }
 ]
 export {routes};
