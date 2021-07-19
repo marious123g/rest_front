@@ -2,22 +2,24 @@
   <div class="customer-order-page">
     <el-row type="flex">
       <div class="customer-order-container">
+        <!--        <a-affix :offset-top="top">-->
+        <div class="customer-header">
+          <el-breadcrumb class="crumbs" separator="/">
 
-        <el-breadcrumb class="crumbs" separator="/">
-          <el-breadcrumb-item :to="{ path: '/login.html' }">首页</el-breadcrumb-item>
-          <el-breadcrumb-item>主食</el-breadcrumb-item>
-          <el-breadcrumb-item>凉菜</el-breadcrumb-item>
-          <el-breadcrumb-item>酒水</el-breadcrumb-item>
-          <!--        抽屉实现购物车-->
-          <el-button size="mini" style="margin-left: 16px;" type="primary" @click="drawer = true">
-            查看购物车
-          </el-button>
+            <el-breadcrumb-item :to="{ path: '/login.html' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>主食</el-breadcrumb-item>
+            <el-breadcrumb-item>凉菜</el-breadcrumb-item>
+            <el-breadcrumb-item>酒水</el-breadcrumb-item>
+            <!--        抽屉实现购物车-->
+            <el-button size="mini" style="margin-left: 16px;" type="primary" @click="drawer = true">
+              查看购物车
+            </el-button>
 
-          <el-drawer
-              :visible.sync="drawer"
-              title="购物车">
-            <!--            use table to record-->
-            <span>
+            <el-drawer
+                :visible.sync="drawer"
+                title="购物车">
+              <!--            use table to record-->
+              <span>
             <el-table class="cart-table"
                       :data="this.$store.state.dishData"
                       border>
@@ -35,7 +37,7 @@
               <el-table-column label="操作" width="200">
                <template slot-scope="scope">
         <el-button
-            @click="deleteCartDish(scope.$index,scope.row.name)"
+            @click="deleteCartMainCourse(scope.$index,scope.row.name)"
             type="text"
             size="small">
           删除
@@ -53,8 +55,15 @@
             </div>
           </span>
 
-          </el-drawer>
-        </el-breadcrumb>
+            </el-drawer>
+          </el-breadcrumb>
+        </div>
+        <!--        </a-affix>-->
+
+        <template>
+          <el-backtop target=".page-component__scroll .el-scrollbar__wrap"></el-backtop>
+        </template>
+
         <!--        遍历菜品数组-->
         <!--        从这里开始不想活了-->
         <div class="main-course-display">
@@ -70,7 +79,7 @@
                     <el-input-number v-model="item.num"
                                      :min="0" class="dish-num-btn" size="mini"
                                      @blur="isOperated()"
-                                     @change="addToCart(item,index)">
+                                     @change="addMainCourseToCart(item,index)">
                     </el-input-number>
                   </div>
                 </div>
@@ -92,14 +101,13 @@ export default {
   name: "DishesMainCourse",
   data() {
     return {
-      // 后台传来的主菜的数据数目
-      main_course_total_num: 13,
 
       // 用数组存菜的信息，包括菜名，数量，价格
       main_course_info:[
         {
           id:0,
           name:"dish1",
+
           num:0,
           price:10
         },
@@ -183,12 +191,6 @@ export default {
     };
   },
   computed: {
-    // md为了防止绑定表格翻车，就这样吧
-    // dishData:function ()
-    // {
-    //   return this.$store.state.dishData;
-    // }
-
   },
   methods: {
 
@@ -199,7 +201,7 @@ export default {
     // 这个地方怎么这么费劲呢
     // 表格的第几行（index） 也就意味着在dishTable里第几个元素（大概是吧
     // 经测试这个name可以这样传过来，我真要蚌埠住了
-    deleteCartDish(index,name)
+    deleteCartMainCourse(index,name)
     {
       console.log("即将删除："+name)
       // rows.splice(index, 1);
@@ -216,7 +218,7 @@ export default {
       }
     },
     // 这里读的item和index是这个组件里的main_course_info的
-    addToCart(item,index) {
+    addMainCourseToCart(item,index) {
       // 遍历main-course-info里菜的数量，也就是主面板那个计数器的值
       // 这里读的是store里的dishData
       for (let i = 0; i < this.$store.getters.getDishDataLength; i++)
@@ -267,7 +269,14 @@ export default {
     });
 
     return sums;
-  }
+  },
+  beforeMount() {
+
+    this.main_course_info = JSON.parse(sessionStorage.getItem("key"))
+  },
+  beforeUpdate() {
+    sessionStorage.setItem("key",JSON.stringify(this.main_course_info));
+  },
 
 
 
@@ -282,6 +291,9 @@ export default {
   height: auto;
   overflow: hidden;
 }
+/*.customer-header {*/
+/*  position: fixed;*/
+/*}*/
 
 .dish-card{
   margin: 10px;

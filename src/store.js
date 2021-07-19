@@ -1,9 +1,95 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import createPersistedState from "vuex-persistedstate"
 // import main_course from "@/components/main_course";
 Vue.use(Vuex)
 export default new Vuex.Store({
+    // will I succeed?
+    plugins: [createPersistedState({
+        storage: window.sessionStorage
+    })],
     state: {
+        main_course_info:[
+            {
+                id:0,
+                name:"dish1",
+
+                num:0,
+                price:10
+            },
+            {
+                id:0,
+                name:"dish2",
+                num:0,
+                price:11
+            },
+            {
+                id:0,
+                name:"dish3",
+                num:0,
+                price:12
+            },
+            {
+                id:0,
+                name:"dish4",
+                num:0,
+                price:14
+            },
+            {
+                id:0,
+                name:"dish5",
+                num:0,
+                price:15
+            },
+            {
+                id:0,
+                name:"dish6",
+                num:0,
+                price:13
+            },
+            {
+                id:0,
+                name:"dish7",
+                num:0,
+                price:13
+            },
+            {
+                id:0,
+                name:"dish8",
+                num:0,
+                price:13
+            },
+            {
+                id:0,
+                name:"dish9",
+                num:0,
+                price:13
+            },
+            {
+                id:0,
+                name:"dish10",
+                num:0,
+                price:13
+            },
+            {
+                id:0,
+                name:"dish11",
+                num:0,
+                price:13
+            },
+            {
+                id:0,
+                name:"dish12",
+                num:0,
+                price:13
+            },
+            {
+                id:0,
+                name:"dish13",
+                num:0,
+                price:13
+            }
+        ],
         // 购物车数据
         dishData:[
             // {
@@ -17,6 +103,10 @@ export default new Vuex.Store({
     },
     // 对state计算，不能更改
     getters:{
+        getMainCourseLength(state)
+        {
+            return state.main_course_info.length;
+        },
 
         getDishDataLength(state)
         {
@@ -34,13 +124,24 @@ export default new Vuex.Store({
     },
     // 只有，只有，只有mutations中的方法可以对state中的数据进行改变
     mutations: {
+        changeMainCourseToZero(state,dish)
+        {
+            for (let i=0;i<state.main_course_info.length;i++)
+            {
+                if(state.main_course_info[i].name===dish.name)
+                {
+                    state.main_course_info[i].num=0;
+                }
+            }
+
+        },
 
         // 直接加入购物车
         addToCart(state, dish)
         {
             state.dishData.push(dish);
         },
-        // 改变数量
+        // 改变购物车数量
         changeAmount(state,dish)
         {
             console.log(dish);

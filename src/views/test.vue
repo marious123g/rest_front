@@ -2,22 +2,24 @@
   <div class="customer-order-page">
     <el-row type="flex">
       <div class="customer-order-container">
+        <!--        <a-affix :offset-top="top">-->
+        <div class="customer-header">
+          <el-breadcrumb class="crumbs" separator="/">
 
-        <el-breadcrumb class="crumbs" separator="/">
-          <el-breadcrumb-item :to="{ path: '/login.html' }">首页</el-breadcrumb-item>
-          <el-breadcrumb-item>主食</el-breadcrumb-item>
-          <el-breadcrumb-item>凉菜</el-breadcrumb-item>
-          <el-breadcrumb-item>酒水</el-breadcrumb-item>
-          <!--        抽屉实现购物车-->
-          <el-button size="mini" style="margin-left: 16px;" type="primary" @click="drawer = true">
-            查看购物车
-          </el-button>
+            <el-breadcrumb-item :to="{ path: '/login.html' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>主食</el-breadcrumb-item>
+            <el-breadcrumb-item>凉菜</el-breadcrumb-item>
+            <el-breadcrumb-item>酒水</el-breadcrumb-item>
+            <!--        抽屉实现购物车-->
+            <el-button size="mini" style="margin-left: 16px;" type="primary" @click="drawer = true">
+              查看购物车
+            </el-button>
 
-          <el-drawer
-              :visible.sync="drawer"
-              title="购物车">
-            <!--            use table to record-->
-            <span>
+            <el-drawer
+                :visible.sync="drawer"
+                title="购物车">
+              <!--            use table to record-->
+              <span>
             <el-table class="cart-table"
                       :data="this.$store.state.dishData"
                       border>
@@ -35,7 +37,7 @@
               <el-table-column label="操作" width="200">
                <template slot-scope="scope">
         <el-button
-            @click="deleteCartDish(scope.$index,scope.row.name)"
+            @click="deleteCartMainCourse(scope.$index,scope.row.name)"
             type="text"
             size="small">
           删除
@@ -53,13 +55,20 @@
             </div>
           </span>
 
-          </el-drawer>
-        </el-breadcrumb>
+            </el-drawer>
+          </el-breadcrumb>
+        </div>
+        <!--        </a-affix>-->
+
+        <template>
+          <el-backtop target=".page-component__scroll .el-scrollbar__wrap"></el-backtop>
+        </template>
+
         <!--        遍历菜品数组-->
         <!--        从这里开始不想活了-->
         <div class="main-course-display">
           <el-row type="flex">
-            <el-col v-for="(item,index) in this.main_course_info" :key="item.name" :span="4">
+            <el-col v-for="(item,index) in this.$store.state.main_course_info" :key="item.name" :span="4">
               <!--              内边距10，外边距10-->
               <el-card class="dish-card" :body-style="{ padding: '10px'}">
                 <img class="image"
@@ -70,7 +79,7 @@
                     <el-input-number v-model="item.num"
                                      :min="0" class="dish-num-btn" size="mini"
                                      @blur="isOperated()"
-                                     @change="addToCart(item,index)">
+                                     @change="addMainCourseToCart(item,index)">
                     </el-input-number>
                   </div>
                 </div>
@@ -89,106 +98,15 @@
 <script>
 // import { mapState, mapActions } from 'vuex'
 export default {
-  name: "test",
+  name: "DishesMainCourse",
   data() {
     return {
-      // 后台传来的主菜的数据数目
-      main_course_total_num: 13,
-
-      // 用数组存菜的信息，包括菜名，数量，价格
-      main_course_info:[
-        {
-          id:0,
-          name:"dish1",
-          num:0,
-          price:10
-        },
-        {
-          id:0,
-          name:"dish2",
-          num:0,
-          price:11
-        },
-        {
-          id:0,
-          name:"dish3",
-          num:0,
-          price:12
-        },
-        {
-          id:0,
-          name:"dish4",
-          num:0,
-          price:14
-        },
-        {
-          id:0,
-          name:"dish5",
-          num:0,
-          price:15
-        },
-        {
-          id:0,
-          name:"dish6",
-          num:0,
-          price:13
-        },
-        {
-          id:0,
-          name:"dish7",
-          num:0,
-          price:13
-        },
-        {
-          id:0,
-          name:"dish8",
-          num:0,
-          price:13
-        },
-        {
-          id:0,
-          name:"dish9",
-          num:0,
-          price:13
-        },
-        {
-          id:0,
-          name:"dish10",
-          num:0,
-          price:13
-        },
-        {
-          id:0,
-          name:"dish11",
-          num:0,
-          price:13
-        },
-        {
-          id:0,
-          name:"dish12",
-          num:0,
-          price:13
-        },
-        {
-          id:0,
-          name:"dish13",
-          num:0,
-          price:13
-        }
-      ],
-
       drawer: false,
       // 绑定购物车的表格
 
     };
   },
   computed: {
-    // md为了防止绑定表格翻车，就这样吧
-    // dishData:function ()
-    // {
-    //   return this.$store.state.dishData;
-    // }
-
   },
   methods: {
 
@@ -199,7 +117,7 @@ export default {
     // 这个地方怎么这么费劲呢
     // 表格的第几行（index） 也就意味着在dishTable里第几个元素（大概是吧
     // 经测试这个name可以这样传过来，我真要蚌埠住了
-    deleteCartDish(index,name)
+    deleteCartMainCourse(index,name)
     {
       console.log("即将删除："+name)
       // rows.splice(index, 1);
@@ -216,21 +134,21 @@ export default {
       }
     },
     // 这里读的item和index是这个组件里的main_course_info的
-    addToCart(item,index) {
+    addMainCourseToCart(item,index) {
       // 遍历main-course-info里菜的数量，也就是主面板那个计数器的值
       // 这里读的是store里的dishData
       for (let i = 0; i < this.$store.getters.getDishDataLength; i++)
       {
         // 已经有过记录
-        if (this.$store.state.dishData[i].name === this.main_course_info[index].name)
+        if (this.$store.state.dishData[i].name === this.$store.state.main_course_info[index].name)
         {
           // 只改变amount即可
           // call changeAmount(state,name,amount)
           // store里面的changeAmount函数涵盖了数量为0或者不为0的情况
           let dish = {
-            name: this.main_course_info[index].name,
-            price: this.main_course_info[index].price,
-            num: this.main_course_info[index].num,
+            name: this.$store.state.main_course_info[index].name,
+            price: this.$store.state.main_course_info[index].price,
+            num: this.$store.state.main_course_info[index].num,
           }
           // 这样可以把dish的信息传过去
           this.$store.commit('changeAmount',dish);
@@ -242,9 +160,9 @@ export default {
       // 妹有记录还
       // ok
       let dish = {
-        name: this.main_course_info[index].name,
-        price: this.main_course_info[index].price,
-        amount: this.main_course_info[index].num,
+        name: this.$store.state.main_course_info[index].name,
+        price: this.$store.state.main_course_info[index].price,
+        amount: this.$store.state.main_course_info[index].num,
       }
       this.$store.commit('addToCart',dish)
       // this.$store.state.dishData.push(t);
@@ -267,9 +185,7 @@ export default {
     });
 
     return sums;
-  }
-
-
+  },
 
 }
 </script>
@@ -282,6 +198,9 @@ export default {
   height: auto;
   overflow: hidden;
 }
+/*.customer-header {*/
+/*  position: fixed;*/
+/*}*/
 
 .dish-card{
   margin: 10px;

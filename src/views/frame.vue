@@ -103,7 +103,7 @@ export default {
   created() {
     this.userForm.userName = sessionStorage.getItem('userName');
     this.componentsForm.aside = sessionStorage.getItem('aside');
-    if(sessionStorage.getItem('custom') == 'true') {
+    if(sessionStorage.getItem('custom') === 'true') {
       this.userForm.userGroup = 'custom';
       sessionStorage.setItem('userGroup','custom');
       if(!this.componentsForm.aside) this.componentsForm.aside = 'dishesMainCourse';
