@@ -1,7 +1,7 @@
 <template>
   <div class="login-wrap">
     <div class="login-container">
-      <el-form :model="loginForm" :rules="rules2"
+      <el-form :model="loginForm" :rules="rules1"
                status-icon
                ref="loginForm"
                label-position="left"
@@ -10,9 +10,9 @@
         <h2 class="title" style="text-align:center;margin:0px auto 20px">
           餐厅点餐系统登录
         </h2>
-        <el-form-item prop="username">
+        <el-form-item prop="userName">
           <el-input type="text"
-                    v-model="loginForm.username"
+                    v-model="loginForm.userName"
                     placeholder="用户名">
           </el-input>
         </el-form-item>
@@ -35,11 +35,11 @@
           员工登录
         </el-button>
         <el-form-item style="width:100%;text-align:center;">
-          <el-link href="./register.html" target="_blank" :underline="false">
+          <el-link href="./register" target="_blank" :underline="false">
             新用户注册
           </el-link>
           &nbsp;|&nbsp;
-          <el-link href="./fogetPassword.html" target="_blank" :underline="false">
+          <el-link href="./fogetPassword" target="_blank" :underline="false">
             忘记密码
           </el-link>
 
@@ -52,16 +52,17 @@
 
 <script>
 export default {
+  inject:['reload'],
   data(){
     return {
       logining: false,
       loginForm: {
-        username: '',
-        password: '',
+        userName: 'admin',
+        password: 'admin',
         remember: false
       },
-      rules2: {
-        username: [{required: true, message: '请输入用户名', trigger: 'blur'}],
+      rules1: {
+        userName: [{required: true, message: '请输入用户名', trigger: 'blur'}],
         password: [{required: true, message: '请输入密码', trigger: 'blur'}]
       }
     }
@@ -71,13 +72,12 @@ export default {
       this.$refs.loginForm.validate((valid) => {
         if(valid){
           this.logining = true;
-          if(this.loginForm.username !== '' &&
+          if(this.loginForm.userName !== '' &&
               this.loginForm.password !== ''){
             this.logining = false;
-            sessionStorage.setItem('username', this.loginForm.username);
+            sessionStorage.setItem('userName', this.loginForm.userName);
             sessionStorage.setItem('custom',true);
-            sessionStorage.setItem('staff',false);
-            this.$router.push({path: '/frame.html'});
+            this.$router.push({path: '/user/mainCourse.html'});
           }else{
             this.logining = false;
             this.$alert('用户名或密码错误！', '提示', {
@@ -94,13 +94,12 @@ export default {
       this.$refs.loginForm.validate((valid) => {
         if(valid){
           this.logining = true;
-          if(this.loginForm.username === 'admin' &&
-              this.loginForm.password === 'admin'){
+          if(this.loginForm.userName !== '' &&
+              this.loginForm.password !== ''){
             this.logining = false;
-            sessionStorage.setItem('username', this.loginForm.username);
+            sessionStorage.setItem('userName', this.loginForm.userName);
             sessionStorage.setItem('custom',false);
-            sessionStorage.setItem('staff',true);
-            this.$router.push({path: '/frame.html'});
+            this.$router.push({path: '/frame'});
           }else{
             this.logining = false;
             this.$alert('用户名或密码错误！', '提示', {
@@ -118,9 +117,6 @@ export default {
 </script>
 
 <style scoped>
-body{
-  margin: 0px;
-}
 .login-wrap {
   display: flex;
   flex-direction: column;
@@ -144,7 +140,7 @@ body{
   margin: auto;
   -webkit-border-radius: 5px;
   border-radius: 5px;
-  width: 350px;
+  width: calc(10% + 200px);
   padding: 35px 35px 0px;
   background: #ffffff;
   border: 1px solid #eaeaea;

@@ -7,13 +7,11 @@
           <el-breadcrumb class="crumbs" separator="/">
 
             <el-breadcrumb-item :to="{ path: '/login.html' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item>主食</el-breadcrumb-item>
-            <el-breadcrumb-item>凉菜</el-breadcrumb-item>
-            <el-breadcrumb-item>酒水</el-breadcrumb-item>
             <!--        抽屉实现购物车-->
             <el-button size="mini" style="margin-left: 16px;" type="primary" @click="drawer = true">
               查看购物车
             </el-button>
+<!--            <el-button @click="roll">测试锚点</el-button>-->
 
             <el-drawer
                 :visible.sync="drawer"
@@ -37,7 +35,7 @@
               <el-table-column label="操作" width="200">
                <template slot-scope="scope">
         <el-button
-            @click="deleteCartMainCourse(scope.$index,scope.row.name)"
+            @click="deleteCart(scope.$index,scope.row.name)"
             type="text"
             size="small">
           删除
@@ -85,14 +83,19 @@
                 </div>
               </el-card>
             </el-col>
-
           </el-row>
+
+<!--          <div id="test">-->
+<!--            this is a test module-->
+<!--          </div>-->
 
         </div>
 
       </div>
     </el-row>
+
   </div>
+
 </template>
 
 <script>
@@ -112,35 +115,82 @@ export default {
   },
   methods: {
 
-    isOperated()
-    {
-      return true;
+    roll(){
+      document.getElementById("test").scrollIntoView();
     },
     // 这个地方怎么这么费劲呢
     // 表格的第几行（index） 也就意味着在dishTable里第几个元素（大概是吧
     // 经测试这个name可以这样传过来，我真要蚌埠住了
-    deleteCartMainCourse(index,name)
+    deleteCart(index, name)
     {
-      console.log("即将删除："+name)
+      console.log("即将删除：" + name)
       // call $store.deleteCartDish
-      this.$store.commit('deleteCartDish',name);
-      for(let i=0;i<this.$store.getters.getMainCourseLength;i++)
-      {
-        if(this.$store.state.main_course_info[i].name===name)
-        {
-          console.log("找到面板记录，菜名："+this.$store.state.main_course_info[i].name)
+      this.$store.commit('deleteCartDish', name);
+      for (let i = 0; i < this.$store.getters.getDrinkLength; i++) {
+        if (this.$store.state.drink_info[i].name === name) {
+          console.log("找到面板记录，菜名：" + this.$store.state.drink_info[i].name)
 
           let dish = {
-            name: this.$store.state.main_course_info[i].name,
-            price: this.$store.state.main_course_info[i].price,
-            amount: this.$store.state.main_course_info[i].num,
+            name: this.$store.state.drink_info[i].name,
+            price: this.$store.state.drink_info[i].price,
+            amount: this.$store.state.drink_info[i].num,
           }
-          this.$store.commit('changeMainCourseToZero',dish);
-          console.log("现在，菜名："+this.$store.state.main_course_info[i].name+"的数量"+this.$store.state.main_course_info[i].num)
+          this.$store.commit('changeDishToZero', dish);
+          console.log("现在，菜名：" + this.$store.state.drink_info[i].name + "的数量" + this.$store.state.drink_info[i].num)
           break
+        }
+        for (let i = 0; i < this.$store.getters.getMainCourseLength; i++) {
+          if (this.$store.state.main_course_info[i].name === name) {
+            console.log("找到面板记录，菜名：" + this.$store.state.main_course_info[i].name)
+
+            let dish = {
+              name: this.$store.state.main_course_info[i].name,
+              price: this.$store.state.main_course_info[i].price,
+              amount: this.$store.state.main_course_info[i].num,
+            }
+            this.$store.commit('changeDishToZero', dish);
+            console.log("现在，菜名：" + this.$store.state.main_course_info[i].name + "的数量" + this.$store.state.main_course_info[i].num)
+            break
+          }
+        }
+        for (let i = 0; i < this.$store.getters.getSnackLength; i++) {
+          if (this.$store.state.snack_info[i].name === name) {
+            console.log("找到面板记录，菜名：" + this.$store.state.snack_info[i].name)
+
+            let dish = {
+              name: this.$store.state.snack_info[i].name,
+              price: this.$store.state.snack_info[i].price,
+              amount: this.$store.state.snack_info[i].num,
+            }
+            this.$store.commit('changeDishToZero', dish);
+            console.log("现在，菜名：" + this.$store.state.snack_info[i].name + "的数量" + this.$store.state.snack_info[i].num)
+            break
+          }
         }
       }
     },
+    // deleteCartMainCourse(index,name)
+    // {
+    //   console.log("即将删除："+name)
+    //   // call $store.deleteCartDish
+    //   this.$store.commit('deleteCartDish',name);
+    //   for(let i=0;i<this.$store.getters.getMainCourseLength;i++)
+    //   {
+    //     if(this.$store.state.main_course_info[i].name===name)
+    //     {
+    //       console.log("找到面板记录，菜名："+this.$store.state.main_course_info[i].name)
+    //
+    //       let dish = {
+    //         name: this.$store.state.main_course_info[i].name,
+    //         price: this.$store.state.main_course_info[i].price,
+    //         amount: this.$store.state.main_course_info[i].num,
+    //       }
+    //       this.$store.commit('changeDishToZero',dish);
+    //       console.log("现在，菜名："+this.$store.state.main_course_info[i].name+"的数量"+this.$store.state.main_course_info[i].num)
+    //       break
+    //     }
+    //   }
+    // },
     // 这里读的item和index是这个组件里的main_course_info的
     addMainCourseToCart(item,index) {
       // 遍历main-course-info里菜的数量，也就是主面板那个计数器的值

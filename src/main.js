@@ -18,11 +18,13 @@ Vue.use(Vuex)
 import store from "./store.js";
 
 // generate ant-design-vue
-import { DatePicker } from 'ant-design-vue';
-Vue.use(DatePicker);
-import Antd from 'ant-design-vue'
-Vue.use(Antd)
-import 'ant-design-vue/dist/antd.css';
+// import { DatePicker } from 'ant-design-vue';
+// Vue.use(DatePicker);
+// import Antd from 'ant-design-vue'
+// Vue.use(Antd)
+// import 'ant-design-vue/dist/antd.css';
+
+
 
 Vue.config.productionTip = false
 //这个变量名其实可以不叫这个，不过建议不要瞎搞

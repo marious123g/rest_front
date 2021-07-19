@@ -2,19 +2,14 @@
   <div class="customer-order-page">
     <el-row type="flex">
       <div class="customer-order-container">
-        <!--        <a-affix :offset-top="top">-->
         <div class="customer-header">
           <el-breadcrumb class="crumbs" separator="/">
 
             <el-breadcrumb-item :to="{ path: '/login.html' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item>主食</el-breadcrumb-item>
-            <el-breadcrumb-item>凉菜</el-breadcrumb-item>
-            <el-breadcrumb-item>酒水</el-breadcrumb-item>
             <!--        抽屉实现购物车-->
             <el-button size="mini" style="margin-left: 16px;" type="primary" @click="drawer = true">
               查看购物车
             </el-button>
-            <el-button @click="roll">测试锚点</el-button>
 
             <el-drawer
                 :visible.sync="drawer"
@@ -38,7 +33,7 @@
               <el-table-column label="操作" width="200">
                <template slot-scope="scope">
         <el-button
-            @click="deleteCartMainCourse(scope.$index,scope.row.name)"
+            @click="deleteCart(scope.$index,scope.row.name)"
             type="text"
             size="small">
           删除
@@ -59,7 +54,6 @@
             </el-drawer>
           </el-breadcrumb>
         </div>
-        <!--        </a-affix>-->
 
         <template>
           <el-backtop target=".page-component__scroll .el-scrollbar__wrap"></el-backtop>
@@ -69,7 +63,7 @@
         <!--        从这里开始不想活了-->
         <div class="main-course-display">
           <el-row type="flex">
-            <el-col v-for="(item,index) in this.$store.state.main_course_info" :key="item.name" :span="4">
+            <el-col v-for="(item,index) in this.$store.state.snack_info" :key="item.name" :span="4">
               <!--              内边距10，外边距10-->
               <el-card class="dish-card" :body-style="{ padding: '10px'}">
                 <img class="image"
@@ -80,22 +74,20 @@
                     <el-input-number v-model="item.num"
                                      :min="0" class="dish-num-btn" size="mini"
                                      @blur="isOperated()"
-                                     @change="addMainCourseToCart(item,index)">
+                                     @change="addSnackToCart(item,index)">
                     </el-input-number>
                   </div>
                 </div>
               </el-card>
             </el-col>
+
           </el-row>
+
         </div>
 
       </div>
     </el-row>
-    <div id="test">
-      this is a test module
-    </div>
   </div>
-
 </template>
 
 <script>
@@ -103,7 +95,7 @@
 // import store from "vux/src/vuex/store";
 
 export default {
-  name: "DishesMainCourse",
+  name: "DishesSnack",
   data() {
     return {
       drawer: false,
@@ -115,50 +107,78 @@ export default {
   },
   methods: {
 
-    roll(){
-      document.getElementById("test").scrollIntoView();
+    isOperated()
+    {
+      return true;
     },
     // 这个地方怎么这么费劲呢
     // 表格的第几行（index） 也就意味着在dishTable里第几个元素（大概是吧
     // 经测试这个name可以这样传过来，我真要蚌埠住了
-    deleteCartMainCourse(index,name)
+    deleteCart(index, name)
     {
-      console.log("即将删除："+name)
+      console.log("即将删除：" + name)
       // call $store.deleteCartDish
-      this.$store.commit('deleteCartDish',name);
-      for(let i=0;i<this.$store.getters.getMainCourseLength;i++)
-      {
-        if(this.$store.state.main_course_info[i].name===name)
-        {
-          console.log("找到面板记录，菜名："+this.$store.state.main_course_info[i].name)
+      this.$store.commit('deleteCartDish', name);
+      for (let i = 0; i < this.$store.getters.getDrinkLength; i++) {
+        if (this.$store.state.drink_info[i].name === name) {
+          console.log("找到面板记录，菜名：" + this.$store.state.drink_info[i].name)
 
           let dish = {
-            name: this.$store.state.main_course_info[i].name,
-            price: this.$store.state.main_course_info[i].price,
-            amount: this.$store.state.main_course_info[i].num,
+            name: this.$store.state.drink_info[i].name,
+            price: this.$store.state.drink_info[i].price,
+            amount: this.$store.state.drink_info[i].num,
           }
-          this.$store.commit('changeMainCourseToZero',dish);
-          console.log("现在，菜名："+this.$store.state.main_course_info[i].name+"的数量"+this.$store.state.main_course_info[i].num)
+          this.$store.commit('changeDishToZero', dish);
+          console.log("现在，菜名：" + this.$store.state.drink_info[i].name + "的数量" + this.$store.state.drink_info[i].num)
           break
+        }
+        for (let i = 0; i < this.$store.getters.getMainCourseLength; i++) {
+          if (this.$store.state.main_course_info[i].name === name) {
+            console.log("找到面板记录，菜名：" + this.$store.state.main_course_info[i].name)
+
+            let dish = {
+              name: this.$store.state.main_course_info[i].name,
+              price: this.$store.state.main_course_info[i].price,
+              amount: this.$store.state.main_course_info[i].num,
+            }
+            this.$store.commit('changeDishToZero', dish);
+            console.log("现在，菜名：" + this.$store.state.main_course_info[i].name + "的数量" + this.$store.state.main_course_info[i].num)
+            break
+          }
+        }
+        for (let i = 0; i < this.$store.getters.getSnackLength; i++) {
+          if (this.$store.state.snack_info[i].name === name) {
+            console.log("找到面板记录，菜名：" + this.$store.state.snack_info[i].name)
+
+            let dish = {
+              name: this.$store.state.snack_info[i].name,
+              price: this.$store.state.snack_info[i].price,
+              amount: this.$store.state.snack_info[i].num,
+            }
+            this.$store.commit('changeDishToZero', dish);
+            console.log("现在，菜名：" + this.$store.state.snack_info[i].name + "的数量" + this.$store.state.snack_info[i].num)
+            break
+          }
         }
       }
     },
-    // 这里读的item和index是这个组件里的main_course_info的
-    addMainCourseToCart(item,index) {
+
+    // 这里读的item和index是main_course_info的
+    addSnackToCart(item,index) {
       // 遍历main-course-info里菜的数量，也就是主面板那个计数器的值
       // 这里读的是store里的dishData
       for (let i = 0; i < this.$store.getters.getDishDataLength; i++)
       {
         // 已经有过记录
-        if (this.$store.state.dishData[i].name === this.$store.state.main_course_info[index].name)
+        if (this.$store.state.dishData[i].name === this.$store.state.snack_info[index].name)
         {
           // 只改变amount即可
           // call changeAmount(state,name,amount)
           // store里面的changeAmount函数涵盖了数量为0或者不为0的情况
           let dish = {
-            name: this.$store.state.main_course_info[index].name,
-            price: this.$store.state.main_course_info[index].price,
-            num: this.$store.state.main_course_info[index].num,
+            name: this.$store.state.snack_info[index].name,
+            price: this.$store.state.snack_info[index].price,
+            num: this.$store.state.snack_info[index].num,
           }
           // 这样可以把dish的信息传过去
           this.$store.commit('changeAmount',dish);
@@ -170,9 +190,9 @@ export default {
       // 妹有记录还
       // ok
       let dish = {
-        name: this.$store.state.main_course_info[index].name,
-        price: this.$store.state.main_course_info[index].price,
-        amount: this.$store.state.main_course_info[index].num,
+        name: this.$store.state.snack_info[index].name,
+        price: this.$store.state.snack_info[index].price,
+        amount: this.$store.state.snack_info[index].num,
       }
       this.$store.commit('addToCart',dish)
       // this.$store.state.dishData.push(t);

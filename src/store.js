@@ -9,82 +9,184 @@ export default new Vuex.Store({
         storage: window.sessionStorage
     })],
     state: {
-        main_course_info:[
+        snack_info:[
             {
-                id:0,
-                name:"dish1",
-
+                name:"snack1",
                 num:0,
                 price:10
             },
             {
-                id:0,
+                name:"snack2",
+                num:0,
+                price:11
+            },
+            {
+                name:"snack3",
+                num:0,
+                price:12
+            },
+            {
+                name:"snack4",
+                num:0,
+                price:14
+            },
+            {
+                name:"snack5",
+                num:0,
+                price:15
+            },
+            {
+                name:"snack6",
+                num:0,
+                price:18
+            },
+            {
+                name:"snack7",
+                num:0,
+                price:19
+            },
+            {
+                name:"snack8",
+                num:0,
+                price:20
+            },
+            {
+                name:"snack9",
+                num:0,
+                price:23
+            },
+            {
+                name:"snack10",
+                num:0,
+                price:25
+            },
+            {
+                name:"snack11",
+                num:0,
+                price:33
+            },
+
+        ],
+         drink_info:[
+            {
+                name:"drink1",
+                num:0,
+                price:10
+            },
+            {
+                name:"drink2",
+                num:0,
+                price:11
+            },
+            {
+                name:"drink3",
+                num:0,
+                price:12
+            },
+            {
+                name:"drink4",
+                num:0,
+                price:14
+            },
+            {
+                name:"drink5",
+                num:0,
+                price:15
+            },
+            {
+                name:"drink6",
+                num:0,
+                price:18
+            },
+            {
+                name:"drink7",
+                num:0,
+                price:19
+            },
+            {
+                name:"drink8",
+                num:0,
+                price:20
+            },
+            {
+                name:"drink9",
+                num:0,
+                price:23
+            },
+            {
+                name:"drink10",
+                num:0,
+                price:25
+            },
+            {
+                name:"drink11",
+                num:0,
+                price:33
+            },
+
+        ],
+        main_course_info:[
+            {
+                name:"dish1",
+                num:0,
+                price:10
+            },
+            {
                 name:"dish2",
                 num:0,
                 price:11
             },
             {
-                id:0,
                 name:"dish3",
                 num:0,
                 price:12
             },
             {
-                id:0,
                 name:"dish4",
                 num:0,
                 price:14
             },
             {
-                id:0,
                 name:"dish5",
                 num:0,
                 price:15
             },
             {
-                id:0,
                 name:"dish6",
                 num:0,
                 price:13
             },
             {
-                id:0,
                 name:"dish7",
                 num:0,
                 price:13
             },
             {
-                id:0,
                 name:"dish8",
                 num:0,
                 price:13
             },
             {
-                id:0,
                 name:"dish9",
                 num:0,
                 price:13
             },
             {
-                id:0,
                 name:"dish10",
                 num:0,
                 price:13
             },
             {
-                id:0,
                 name:"dish11",
                 num:0,
                 price:13
             },
             {
-                id:0,
                 name:"dish12",
                 num:0,
                 price:13
             },
             {
-                id:0,
                 name:"dish13",
                 num:0,
                 price:13
@@ -107,11 +209,20 @@ export default new Vuex.Store({
         {
             return state.main_course_info.length;
         },
-
+        getDrinkLength(state)
+        {
+            return state.drink_info.length;
+        },
+        getSnackLength(state)
+        {
+            return state.snack_info.length;
+        },
         getDishDataLength(state)
         {
             return state.dishData.length;
         },
+
+
         getTotalPrice (state) {
             let temp=0;
             for (let i=0;i<state.dishData.length;i++)
@@ -124,6 +235,34 @@ export default new Vuex.Store({
     },
     // 只有，只有，只有mutations中的方法可以对state中的数据进行改变
     mutations: {
+
+        changeDishToZero(state,dish)
+        {
+            for (let i=0;i<state.main_course_info.length;i++)
+            {
+                if(state.main_course_info[i].name===dish.name)
+                {
+                    state.main_course_info[i].num=0;
+                }
+            }
+            for (let i=0;i<state.drink_info.length;i++)
+            {
+                if(state.drink_info[i].name===dish.name)
+                {
+                    state.drink_info[i].num=0;
+                }
+            }
+            for (let i=0;i<state.snack_info.length;i++)
+            {
+                if(state.snack_info[i].name===dish.name)
+                {
+                    state.snack_info[i].num=0;
+                }
+            }
+
+
+        },
+
         changeMainCourseToZero(state,dish)
         {
             for (let i=0;i<state.main_course_info.length;i++)
@@ -131,6 +270,18 @@ export default new Vuex.Store({
                 if(state.main_course_info[i].name===dish.name)
                 {
                     state.main_course_info[i].num=0;
+                }
+            }
+
+        },
+
+        changeDrinkToZero(state,dish)
+        {
+            for (let i=0;i<state.drink_info.length;i++)
+            {
+                if(state.drink_info[i].name===dish.name)
+                {
+                    state.drink_info[i].num=0;
                 }
             }
 

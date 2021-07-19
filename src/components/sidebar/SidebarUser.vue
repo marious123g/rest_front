@@ -1,41 +1,144 @@
 <template>
   <div>
-    <div class="isClossTab" @click="isClossTabFun">
-      <i :class="isCollapse?'el-icon-d-arrow-right':'el-icon-d-arrow-left'" ></i>
-    </div>
+<!--    <div class="isClossTab" @click="isClossTabFun">-->
+<!--      <i :class="isCollapse?'el-icon-d-arrow-right':'el-icon-d-arrow-left'" ></i>-->
+<!--    </div>-->
     <el-image
     style="width: 100%; height:200px; margin:4px 5px 2px 5px;"
     :src="require('../../assets/img/seulogo.png')">
             </el-image>
        <div style=" text-align: center;">桌号：001</div>
        <div style=" text-align: center;">人数：3</div>
-       <div style=" text-align: center;">服务员：007</div>     
-    <el-menu :class="'menu'"
-             default-active="1-4-1"
-             class="el-menu-vertical-demo"
-             @open="handleOpen"
-             @close="handleClose"
-             :collapse="isCollapse"
-             background-color="#545c64"
-             text-color="#fff"
-             active-text-color="#ffd04b"
-    >
-     <el-menu-item-group>
-          <span slot="title"></span>
-          <el-menu-item index="1-1" @click="clickDianCan">点餐</el-menu-item>
-          <el-menu-item index="1-2" @click="clickChaKan">查看订单</el-menu-item>
-      </el-menu-item-group>
-      
+       <div style=" text-align: center;">服务员：007</div>
+    <el-menu
+        default-active="2"
+        class="el-menu-vertical-demo"
+        @open="handleOpen"
+        @close="handleClose"
+        background-color="#545c64"
+        text-color="#fff"
+        active-text-color="#ffd04b"
+        router>
+<!--      <el-submenu index="1">-->
+<!--        <template slot="title">-->
+<!--          <i class="el-icon-s-shop"></i>-->
+<!--          <span>点餐</span>-->
+<!--        </template>-->
+<!--        <el-menu-item-group>-->
+<!--&lt;!&ndash;          <template slot="title">分组一</template>&ndash;&gt;-->
+<!--          <el-menu-item index="1-1">主菜</el-menu-item>-->
+<!--          <el-menu-item index="1-2">小吃</el-menu-item>-->
+<!--          <el-menu-item index="1-3">酒水</el-menu-item>-->
+<!--        </el-menu-item-group>-->
+
+<!--      </el-submenu>-->
+<!--      <el-menu-item index="3-1" >查看订单</el-menu-item>-->
+      <template v-for="item in items">
+        <template v-if="item.subs">
+          <el-submenu :index="item.index" :key="item.index">
+            <template #title>
+              <i :class="item.icon"></i>
+              <span>{{ item.title }}</span>
+            </template>
+            <template v-for="subItem in item.subs">
+              <el-submenu v-if="subItem.subs" :index="subItem.index" :key="subItem.index">
+                <template #title>{{ subItem.title }}</template>
+                <el-menu-item v-for="(threeItem, i) in subItem.subs" :key="i" :index="threeItem.index">
+                  {{ threeItem.title }}</el-menu-item>
+              </el-submenu>
+              <el-menu-item v-else :index="subItem.index" :key="subItem.index">{{ subItem.title }}
+              </el-menu-item>
+            </template>
+          </el-submenu>
+        </template>
+        <template v-else>
+          <el-menu-item :index="item.index" :key="item.index">
+            <i :class="item.icon"></i>
+            <template #title>{{ item.title }}</template>
+          </el-menu-item>
+        </template>
+      </template>
+<!--      <el-button class="see-cart" icon="el-icon-shopping-cart-2" @click="drawer = true">查看购物车</el-button>-->
+<!--      <el-drawer-->
+<!--          :visible.sync="drawer"-->
+<!--          title="购物车">-->
+<!--        &lt;!&ndash;            use table to record&ndash;&gt;-->
+<!--        <span>-->
+<!--            <el-table class="cart-table"-->
+<!--                      :data="this.$store.state.dishData"-->
+<!--                      border>-->
+<!--              <el-table-column label="菜品名" property="name" width="150"></el-table-column>-->
+<!--              <el-table-column label="单价" property="price" width="100"></el-table-column>-->
+<!--              <el-table-column label="数量" property="amount" width="100"></el-table-column>-->
+<!--              &lt;!&ndash;              <el-table-column label="数量" width="200">&ndash;&gt;-->
+<!--              &lt;!&ndash;                <template>&ndash;&gt;-->
+
+<!--              &lt;!&ndash;                  <el-input-number  :min="0" class="dish-num-btn" size="mini"&ndash;&gt;-->
+<!--              &lt;!&ndash;                 @change="handleChange">&ndash;&gt;-->
+<!--              &lt;!&ndash;                  </el-input-number>&ndash;&gt;-->
+<!--              &lt;!&ndash;                </template>&ndash;&gt;-->
+<!--              &lt;!&ndash;              </el-table-column>&ndash;&gt;-->
+<!--              <el-table-column label="操作" width="200">-->
+<!--               <template slot-scope="scope">-->
+<!--        <el-button-->
+<!--            @click="deleteCart(scope.$index,scope.row.name)"-->
+<!--            type="text"-->
+<!--            size="small">-->
+<!--          删除-->
+<!--        </el-button>-->
+<!--      </template>-->
+<!--              </el-table-column>-->
+<!--            </el-table>-->
+<!--              <div class="show-totalPrice">-->
+<!--                共计{{this.$store.getters.getTotalPrice}}元-->
+<!--              </div>-->
+<!--            <div class="confirm-order-btn">-->
+<!--              <el-button type="primary">-->
+<!--                确认下单-->
+<!--              </el-button>-->
+<!--            </div>-->
+<!--          </span>-->
+
+<!--      </el-drawer>-->
+
     </el-menu>
-    <div style="line-height:1000px ;line-width:50px">
-    <el-button type="primary" icon="el-icon-shopping-cart-2" style="width: 100px; height:100px"></el-button>
-    </div>  
+
   </div>
 </template>
 
 <script>
 export default {
-  inject:['reload'],
+  name:"SidebarUser",
+  data() {
+    return {
+      drawer: false,
+      items:[
+        {
+          index:"3",
+          title:"点餐",
+          subs:[
+            {
+              index: "/user/mainCourse.html",
+              title: "主菜",
+            },
+            {
+              index: "/user/snack.html",
+              title: "小吃",
+            },
+            {
+              index: "/user/drink.html",
+              title: "饮料",
+            },
+          ]
+        },
+        {
+          index: "/user",
+          title: "查看订单"
+        }
+      ]
+    }
+  },
+  inject: ['reload'],
   methods: {
     handleOpen(key, keyPath) {
       console.log(key, keyPath);
@@ -44,15 +147,64 @@ export default {
       console.log(key, keyPath);
     },
     clickDianCan() {
-      sessionStorage.setItem('aside','dishesMainCourse');
+      sessionStorage.setItem('aside', 'dishesMainCourse');
       this.reload();
     },
     clickChaKan() {
-      sessionStorage.setItem('aside','orderList');
+      sessionStorage.setItem('aside', 'orderList');
       this.reload();
     },
+    deleteCart(index, name)
+    {
+      console.log("即将删除：" + name)
+      // call $store.deleteCartDish
+      this.$store.commit('deleteCartDish', name);
+      for (let i = 0; i < this.$store.getters.getDrinkLength; i++) {
+        if (this.$store.state.drink_info[i].name === name) {
+          console.log("找到面板记录，菜名：" + this.$store.state.drink_info[i].name)
+
+          let dish = {
+            name: this.$store.state.drink_info[i].name,
+            price: this.$store.state.drink_info[i].price,
+            amount: this.$store.state.drink_info[i].num,
+          }
+          this.$store.commit('changeDishToZero', dish);
+          console.log("现在，菜名：" + this.$store.state.drink_info[i].name + "的数量" + this.$store.state.drink_info[i].num)
+          break
+        }
+        for (let i = 0; i < this.$store.getters.getMainCourseLength; i++) {
+          if (this.$store.state.main_course_info[i].name === name) {
+            console.log("找到面板记录，菜名：" + this.$store.state.main_course_info[i].name)
+
+            let dish = {
+              name: this.$store.state.main_course_info[i].name,
+              price: this.$store.state.main_course_info[i].price,
+              amount: this.$store.state.main_course_info[i].num,
+            }
+            this.$store.commit('changeDishToZero', dish);
+            console.log("现在，菜名：" + this.$store.state.main_course_info[i].name + "的数量" + this.$store.state.main_course_info[i].num)
+            break
+          }
+        }
+        for (let i = 0; i < this.$store.getters.getSnackLength; i++) {
+          if (this.$store.state.snack_info[i].name === name) {
+            console.log("找到面板记录，菜名：" + this.$store.state.snack_info[i].name)
+
+            let dish = {
+              name: this.$store.state.snack_info[i].name,
+              price: this.$store.state.snack_info[i].price,
+              amount: this.$store.state.snack_info[i].num,
+            }
+            this.$store.commit('changeDishToZero', dish);
+            console.log("现在，菜名：" + this.$store.state.snack_info[i].name + "的数量" + this.$store.state.snack_info[i].num)
+            break
+          }
+        }
+      }
+    }
   }
 }
+
 </script>
 
 <style>
@@ -132,6 +284,18 @@ $color: #FFF;
     line-height: 50px;
   }
 
+}
+.see-cart{
+  margin: 50px;
+}
+.confirm-order-btn{
+  margin: 50px;
+  text-align: right;
+}
+.show-totalPrice{
+  text-align: center;
+
+  margin: 25px;
 }
 
 </style>
