@@ -1,28 +1,28 @@
 <template>
   <div>
-    <el-container className="main">
+    <el-container class="main">
       <!--          -->
-      <el-aside width="calc(50% - 500px)">
+      <el-aside  width="calc(50% - 500px)" >
         <SidebarUser v-if="this.userForm.userGroup=='custom'"/>
         <SidebarAdmin v-if="this.userForm.userGroup=='admin'"/>
         <SidebarCook v-if="this.userForm.userGroup=='cook'"/>
         <SidebarWaiter v-if="this.userForm.userGroup=='waiter'"/>
       </el-aside>
       <el-container>
-        <el-header className="main-header">
+        <el-header class="main-header">
           <el-dropdown>
-            <span className="el-dropdown-link">
+            <span class="el-dropdown-link">
                 <img src="" alt="">
             </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>退出登录</el-dropdown-item>
+              <el-dropdown-item >退出登录</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </el-header>
         <el-main>
           <router-view/>
         </el-main>
-        <el-footer className="main-footer" height="50px">
+        <el-footer class="main-footer" height="50px">
           <p>页脚</p>
         </el-footer>
       </el-container>
@@ -37,8 +37,8 @@ import SidebarWaiter from "@/components/sidebar/SidebarWaiter";
 import SidebarCook from "@/components/sidebar/SidebarCook";
 
 export default {
-  inject: ['reload'],
-  components: {
+  inject:['reload'],
+  components:{
     SidebarUser,
     SidebarAdmin,
     SidebarWaiter,
@@ -58,29 +58,30 @@ export default {
   },
   created() {
     this.userForm.userName = sessionStorage.getItem('userName');
-    if (!this.userForm.userName) {
+    if(!this.userForm.userName) {
       this.$router.push({path: '/login'});
       return;
     }
-    if (sessionStorage.getItem('custom') == 'true') {
-      this.userForm.userGroup = 'custom';
-      sessionStorage.setItem('userGroup', 'custom');
-      this.$router.push({path: '/frame/dishesMainCourse'});
-    } else switch (this.userForm.userName) {
+    if(sessionStorage.getItem('custom') == 'true') {
+        this.userForm.userGroup = 'custom';
+        sessionStorage.setItem('userGroup','custom');
+        this.$router.push({path: '/frame/dishesMainCourse'});
+    }
+    else switch(this.userForm.userName){
       case 'admin':
         this.userForm.userGroup = 'admin';
-        sessionStorage.setItem('userGroup', 'admin');
+        sessionStorage.setItem('userGroup','admin');
         this.$router.push({path: '/frame/manageNotice'});
         break;
       case 'cook':
         this.userForm.userGroup = 'cook';
-        sessionStorage.setItem('userGroup', 'cook');
+        sessionStorage.setItem('userGroup','cook');
         this.$router.push({path: '/frame/reserveDishes'});
         break;
       case 'waiter':
       default:
         this.userForm.userGroup = 'waiter';
-        sessionStorage.setItem('userGroup', 'waiter');
+        sessionStorage.setItem('userGroup','waiter');
         this.$router.push({path: '/frame/orderList'});
         break;
     }
@@ -93,15 +94,15 @@ export default {
       console.log(key, keyPath);
     },
 
-    isClossTabFun() {
+    isClossTabFun(){
       clearInterval(this.intelval);
-      if (!this.isCollapse) {
-        this.intelval = setInterval(() => {
-          if (this.tabWidth <= 64)
+      if(!this.isCollapse){
+        this.intelval = setInterval(()=>{
+          if(this.tabWidth<= 64)
             clearInterval(this.intelval);
           this.tabWidth -= 1;
         }, 1);
-      } else {
+      }else{
         this.tabWidth = 200;
       }
       this.isCollapse = !this.isCollapse;
@@ -114,24 +115,24 @@ export default {
 <!--</style>-->
 <style scoped lang="scss">
 
-$header-height: 60px;
+$header-height:60px;
 $background-color: #545c64;
 $color: #FFF;
 
-.main {
+.main{
   height: 100vh;
   min-width: 100%;
   min-height: 600px;
   overflow: hidden;
 
-  aside {
+  aside{
 
     overflow: visible;
     height: 100%;
     background-color: $background-color;
     color: $color;
 
-    .isClossTab {
+    .isClossTab{
       width: 100%;
       height: $header-height;
       cursor: pointer;
@@ -142,10 +143,9 @@ $color: #FFF;
       border-right: 1px solid #807c7c;
       box-sizing: border-box;
     }
-
     .menu {
       width: 100%;
-      border-right: 0;
+      border-right:0;
 
 
     }
@@ -157,17 +157,16 @@ $color: #FFF;
     background-color: $background-color;
     color: $color;
 
-    .el-dropdown {
+    .el-dropdown{
       cursor: pointer;
       float: right;
     }
+    .el-dropdown-link{
 
-    .el-dropdown-link {
-
-      img {
+      img{
         $imgMargin: (($header-height - 50)/2);
-        display: inline-block;
-        width: 50px;
+        display:inline-block;
+        width:50px;
         height: 50px;
         border-radius: 25px;
         background-color: #FFF;
@@ -180,7 +179,7 @@ $color: #FFF;
     margin-bottom: 20px;
   }
 
-  .main-footer {
+  .main-footer{
     text-align: center;
     background-color: $background-color;
     color: $color;

@@ -1,22 +1,31 @@
-// 1. write this
 import frame from "@/views/frame.vue";
 import login from "@/views/login.vue";
-import order from "@/views/order.vue";
 import register from "@/views/register.vue";
-import admin from "@/views/admin.vue";
-import DishesMainCourse from "@/components/dishes/DishesMainCourse";
-import test from "@/views/test";
-import test1 from "@/views/test1";
+import fogetPassword from "@/views/fogetPassword.vue"
+
+import orderList from "@/components/common/OrderList.vue"
+import orderDetail from "@/components/common/OrderDetail.vue"
+import checkNotice from "@/components/common/CheckNotice.vue"
+
+import DishesMainCourse from "@/components/dishes/DishesMainCourse.vue"
+import serveDishes from "@/components/dishes/ServeDishes.vue"
+import reserveDishes from "@/components/dishes/ReserveDishes.vue"
+
+import manageDishes from "@/components/manage/ManageDishes.vue"
+import manageNotice from "@/components/manage/ManageNotice.vue"
+import manageStaff from "@/components/manage/ManageStaff.vue"
+import manageCheckOut from "@/components/manage/ManageCheckOut.vue"
+import manageData from "@/components/manage/ManageData.vue"
+
 import DishesDrink from "@/components/dishes/DishesDrink";
 import DishesSnack from "@/components/dishes/DishesSnack";
 import user from "@/views/user";
-
+import OrderDetail from "@/components/common/OrderDetail";
+import test from "@/views/test";
 var routes=[
-    // 2. add this
-    // one url indicates one page
     {
-      path: "/frame",
-      component: frame
+        path:"/test.html",
+        component:test
     },
     {
         // this might be the url when access
@@ -35,48 +44,79 @@ var routes=[
             {
                 path: "snack.html",
                 component: DishesSnack
+            },
+            {
+                path: "orderDetail.html",
+                component: OrderDetail
             }
         ]
     },
-    {
-        path:"/login.html",
-        component: login,
-    },
-    {
-      path: "/order.html",
-      component: order,
-    },
+
     {
         path: "/",
+        redirect: "/login",
+    },
+    {
+        path: "/login",
         component: login,
     },
     {
-        path: "/register.html",
+        path: "/register",
         component: register,
     },
     {
-        path: "/admin.html",
-        component: admin,
+        path: "/fogetPassword",
+        component: fogetPassword,
     },
     {
-        path: "/DishesMainCourse.html",
-        component: DishesMainCourse,
+        path: "/frame",
+        component: frame,
+        children: [
+            {
+                path: "orderList",
+                component: orderList,
+            },
+            {
+                path: "orderDetail",
+                component: orderDetail,
+            },
+            {
+                path: "checkNotice",
+                component: checkNotice,
+            },
+            // {
+            //     path: "dishesMainCourse",
+            //     component: dishesMainCourse,
+            // },
+            {
+                path: "serveDishes",
+                component: serveDishes,
+            },
+            {
+                path: "reserveDishes",
+                component: reserveDishes,
+            },
+            {
+                path: "manageDishes",
+                component: manageDishes,
+            },
+            {
+                path: "manageNotice",
+                component: manageNotice,
+            },
+            {
+                path: "manageStaff",
+                component: manageStaff,
+            },
+            {
+                path: "manageCheckOut",
+                component: manageCheckOut,
+            },
+            {
+                path: "manageData",
+                component: manageData,
+            },
+        ]
     },
-    {
-        path: "/test.html",
-        component: test,
-    },
-    {
-        path: "/test1.html",
-        component: test1,
-    },
-    {
-        path: "/drink.html",
-        component: DishesDrink,
-    },
-    {
-        path: "/snack.html",
-        component: DishesSnack,
-    }
 ]
 export {routes};

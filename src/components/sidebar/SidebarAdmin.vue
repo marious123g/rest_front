@@ -19,11 +19,11 @@
     >
      <el-menu-item-group>
           <span slot="title"></span>
-          <el-menu-item index="1-1" @click="clickCaiPin">菜品管理</el-menu-item>
-          <el-menu-item index="1-2" @click="clickYuanGong">员工管理</el-menu-item>
-          <el-menu-item index="1-2" @click="clickJieZhang">结账管理</el-menu-item>
-          <el-menu-item index="1-2" @click="clickGongGao">公告管理</el-menu-item>
-          <el-menu-item index="1-2" @click="clickShuJu">经营数据查看</el-menu-item>
+          <el-menu-item index="1-1" @click="clickManageDishes">菜品管理</el-menu-item>
+          <el-menu-item index="1-2" @click="clickManageStaff">员工管理</el-menu-item>
+          <el-menu-item index="1-3" @click="clickManageCheckOut">结账管理</el-menu-item>
+          <el-menu-item index="1-4" @click="clickManageNotice">公告管理</el-menu-item>
+          <el-menu-item index="1-5" @click="clickManageData">经营数据查看</el-menu-item>
       </el-menu-item-group>
       
     </el-menu>
@@ -41,25 +41,20 @@ export default {
     handleClose(key, keyPath) {
       console.log(key, keyPath);
     },
-    clickCaiPin() {
-      sessionStorage.setItem('aside','manageDishes');
-      this.reload();
+    clickManageDishes() {
+      this.$router.push({path: '/frame/manageDishes'});
     },
-    clickYuanGong() {
-      sessionStorage.setItem('aside','manageStaff');
-      this.reload();
+    clickManageStaff() {
+      this.$router.push({path: '/frame/manageStaff'});
     },
-    clickJieZhang() {
-      sessionStorage.setItem('aside','manageCheckOut');
-      this.reload();
+    clickManageCheckOut() {
+      this.$router.push({path: '/frame/manageCheckOut'});
     },
-    clickGongGao() {
-      sessionStorage.setItem('aside','manageNotice');
-      this.reload();
+    clickManageNotice() {
+      this.$router.push({path: '/frame/manageNotice'});
     },
-    clickShuJu() {
-      sessionStorage.setItem('aside','manageData');
-      this.reload();
+    clickManageData() {
+      this.$router.push({path: '/frame/manageData'});
     },
   }
 }

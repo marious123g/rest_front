@@ -1,15 +1,15 @@
 <template>
   <div>
-<!--    <div class="isClossTab" @click="isClossTabFun">-->
-<!--      <i :class="isCollapse?'el-icon-d-arrow-right':'el-icon-d-arrow-left'" ></i>-->
-<!--    </div>-->
+    <!--    <div class="isClossTab" @click="isClossTabFun">-->
+    <!--      <i :class="isCollapse?'el-icon-d-arrow-right':'el-icon-d-arrow-left'" ></i>-->
+    <!--    </div>-->
     <el-image
-    style="width: 100%; height:200px; margin:4px 5px 2px 5px;"
-    :src="require('../../assets/img/seulogo.png')">
-            </el-image>
-       <div style=" text-align: center;">桌号：001</div>
-       <div style=" text-align: center;">人数：3</div>
-       <div style=" text-align: center;">服务员：007</div>
+        style="width: 100%; height:200px; margin:4px 5px 2px 5px;"
+        :src="require('../../assets/img/seulogo.png')">
+    </el-image>
+    <div style=" text-align: center;">桌号：001</div>
+    <div style=" text-align: center;">人数：3</div>
+    <div style=" text-align: center;">服务员：007</div>
     <el-menu
         default-active="2"
         class="el-menu-vertical-demo"
@@ -19,20 +19,20 @@
         text-color="#fff"
         active-text-color="#ffd04b"
         router>
-<!--      <el-submenu index="1">-->
-<!--        <template slot="title">-->
-<!--          <i class="el-icon-s-shop"></i>-->
-<!--          <span>点餐</span>-->
-<!--        </template>-->
-<!--        <el-menu-item-group>-->
-<!--&lt;!&ndash;          <template slot="title">分组一</template>&ndash;&gt;-->
-<!--          <el-menu-item index="1-1">主菜</el-menu-item>-->
-<!--          <el-menu-item index="1-2">小吃</el-menu-item>-->
-<!--          <el-menu-item index="1-3">酒水</el-menu-item>-->
-<!--        </el-menu-item-group>-->
+      <!--      <el-submenu index="1">-->
+      <!--        <template slot="title">-->
+      <!--          <i class="el-icon-s-shop"></i>-->
+      <!--          <span>点餐</span>-->
+      <!--        </template>-->
+      <!--        <el-menu-item-group>-->
+      <!--&lt;!&ndash;          <template slot="title">分组一</template>&ndash;&gt;-->
+      <!--          <el-menu-item index="1-1">主菜</el-menu-item>-->
+      <!--          <el-menu-item index="1-2">小吃</el-menu-item>-->
+      <!--          <el-menu-item index="1-3">酒水</el-menu-item>-->
+      <!--        </el-menu-item-group>-->
 
-<!--      </el-submenu>-->
-<!--      <el-menu-item index="3-1" >查看订单</el-menu-item>-->
+      <!--      </el-submenu>-->
+      <!--      <el-menu-item index="3-1" >查看订单</el-menu-item>-->
       <template v-for="item in items">
         <template v-if="item.subs">
           <el-submenu :index="item.index" :key="item.index">
@@ -58,48 +58,48 @@
           </el-menu-item>
         </template>
       </template>
-<!--      <el-button class="see-cart" icon="el-icon-shopping-cart-2" @click="drawer = true">查看购物车</el-button>-->
-<!--      <el-drawer-->
-<!--          :visible.sync="drawer"-->
-<!--          title="购物车">-->
-<!--        &lt;!&ndash;            use table to record&ndash;&gt;-->
-<!--        <span>-->
-<!--            <el-table class="cart-table"-->
-<!--                      :data="this.$store.state.dishData"-->
-<!--                      border>-->
-<!--              <el-table-column label="菜品名" property="name" width="150"></el-table-column>-->
-<!--              <el-table-column label="单价" property="price" width="100"></el-table-column>-->
-<!--              <el-table-column label="数量" property="amount" width="100"></el-table-column>-->
-<!--              &lt;!&ndash;              <el-table-column label="数量" width="200">&ndash;&gt;-->
-<!--              &lt;!&ndash;                <template>&ndash;&gt;-->
+      <!--      <el-button class="see-cart" icon="el-icon-shopping-cart-2" @click="drawer = true">查看购物车</el-button>-->
+      <!--      <el-drawer-->
+      <!--          :visible.sync="drawer"-->
+      <!--          title="购物车">-->
+      <!--        &lt;!&ndash;            use table to record&ndash;&gt;-->
+      <!--        <span>-->
+      <!--            <el-table class="cart-table"-->
+      <!--                      :data="this.$store.state.dishData"-->
+      <!--                      border>-->
+      <!--              <el-table-column label="菜品名" property="name" width="150"></el-table-column>-->
+      <!--              <el-table-column label="单价" property="price" width="100"></el-table-column>-->
+      <!--              <el-table-column label="数量" property="amount" width="100"></el-table-column>-->
+      <!--              &lt;!&ndash;              <el-table-column label="数量" width="200">&ndash;&gt;-->
+      <!--              &lt;!&ndash;                <template>&ndash;&gt;-->
 
-<!--              &lt;!&ndash;                  <el-input-number  :min="0" class="dish-num-btn" size="mini"&ndash;&gt;-->
-<!--              &lt;!&ndash;                 @change="handleChange">&ndash;&gt;-->
-<!--              &lt;!&ndash;                  </el-input-number>&ndash;&gt;-->
-<!--              &lt;!&ndash;                </template>&ndash;&gt;-->
-<!--              &lt;!&ndash;              </el-table-column>&ndash;&gt;-->
-<!--              <el-table-column label="操作" width="200">-->
-<!--               <template slot-scope="scope">-->
-<!--        <el-button-->
-<!--            @click="deleteCart(scope.$index,scope.row.name)"-->
-<!--            type="text"-->
-<!--            size="small">-->
-<!--          删除-->
-<!--        </el-button>-->
-<!--      </template>-->
-<!--              </el-table-column>-->
-<!--            </el-table>-->
-<!--              <div class="show-totalPrice">-->
-<!--                共计{{this.$store.getters.getTotalPrice}}元-->
-<!--              </div>-->
-<!--            <div class="confirm-order-btn">-->
-<!--              <el-button type="primary">-->
-<!--                确认下单-->
-<!--              </el-button>-->
-<!--            </div>-->
-<!--          </span>-->
+      <!--              &lt;!&ndash;                  <el-input-number  :min="0" class="dish-num-btn" size="mini"&ndash;&gt;-->
+      <!--              &lt;!&ndash;                 @change="handleChange">&ndash;&gt;-->
+      <!--              &lt;!&ndash;                  </el-input-number>&ndash;&gt;-->
+      <!--              &lt;!&ndash;                </template>&ndash;&gt;-->
+      <!--              &lt;!&ndash;              </el-table-column>&ndash;&gt;-->
+      <!--              <el-table-column label="操作" width="200">-->
+      <!--               <template slot-scope="scope">-->
+      <!--        <el-button-->
+      <!--            @click="deleteCart(scope.$index,scope.row.name)"-->
+      <!--            type="text"-->
+      <!--            size="small">-->
+      <!--          删除-->
+      <!--        </el-button>-->
+      <!--      </template>-->
+      <!--              </el-table-column>-->
+      <!--            </el-table>-->
+      <!--              <div class="show-totalPrice">-->
+      <!--                共计{{this.$store.getters.getTotalPrice}}元-->
+      <!--              </div>-->
+      <!--            <div class="confirm-order-btn">-->
+      <!--              <el-button type="primary">-->
+      <!--                确认下单-->
+      <!--              </el-button>-->
+      <!--            </div>-->
+      <!--          </span>-->
 
-<!--      </el-drawer>-->
+      <!--      </el-drawer>-->
 
     </el-menu>
 
@@ -129,10 +129,11 @@ export default {
               index: "/user/drink.html",
               title: "饮料",
             },
+
           ]
         },
         {
-          index: "/user",
+          index: "/user/orderDetail.html",
           title: "查看订单"
         }
       ]

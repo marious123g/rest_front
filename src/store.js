@@ -67,7 +67,7 @@ export default new Vuex.Store({
             },
 
         ],
-         drink_info:[
+        drink_info:[
             {
                 name:"drink1",
                 num:0,

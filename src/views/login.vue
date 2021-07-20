@@ -51,103 +51,103 @@
 </template>
 
 <script>
-export default {
-  inject:['reload'],
-  data(){
-    return {
-      logining: false,
-      loginForm: {
-        userName: 'admin',
-        password: 'admin',
-        remember: false
+  export default {
+    inject:['reload'], 
+    data(){
+      return {
+        logining: false,
+        loginForm: {
+          userName: 'admin',
+          password: 'admin',
+          remember: false
+        },
+        rules1: {
+          userName: [{required: true, message: '请输入用户名', trigger: 'blur'}],
+          password: [{required: true, message: '请输入密码', trigger: 'blur'}]
+        }
+      }
+    },
+    methods: {
+      customLogin(){
+        this.$refs.loginForm.validate((valid) => {
+          if(valid){
+            this.logining = true;
+            if(this.loginForm.userName !== '' &&
+                this.loginForm.password !== ''){
+              this.logining = false;
+              sessionStorage.setItem('userName', this.loginForm.userName);
+              sessionStorage.setItem('custom',true);
+              this.$router.push({path: '/user'});
+            }else{
+              this.logining = false;
+              this.$alert('用户名或密码错误！', '提示', {
+                confirmButtonText: 'ok'
+              })
+            }
+          }else{
+            console.log('error submit!');
+            return false;
+          }
+        })
       },
-      rules1: {
-        userName: [{required: true, message: '请输入用户名', trigger: 'blur'}],
-        password: [{required: true, message: '请输入密码', trigger: 'blur'}]
+      staffLogin(){
+        this.$refs.loginForm.validate((valid) => {
+          if(valid){
+            this.logining = true;
+            if(this.loginForm.userName !== '' &&
+                this.loginForm.password !== ''){
+              this.logining = false;
+              sessionStorage.setItem('userName', this.loginForm.userName);
+              sessionStorage.setItem('custom',false);
+              this.$router.push({path: '/frame'});
+            }else{
+              this.logining = false;
+              this.$alert('用户名或密码错误！', '提示', {
+                confirmButtonText: 'ok'
+              })
+            }
+          }else{
+            console.log('error submit!');
+            return false;
+          }
+        })
       }
     }
-  },
-  methods: {
-    customLogin(){
-      this.$refs.loginForm.validate((valid) => {
-        if(valid){
-          this.logining = true;
-          if(this.loginForm.userName !== '' &&
-              this.loginForm.password !== ''){
-            this.logining = false;
-            sessionStorage.setItem('userName', this.loginForm.userName);
-            sessionStorage.setItem('custom',true);
-            this.$router.push({path: '/user/mainCourse.html'});
-          }else{
-            this.logining = false;
-            this.$alert('用户名或密码错误！', '提示', {
-              confirmButtonText: 'ok'
-            })
-          }
-        }else{
-          console.log('error submit!');
-          return false;
-        }
-      })
-    },
-    staffLogin(){
-      this.$refs.loginForm.validate((valid) => {
-        if(valid){
-          this.logining = true;
-          if(this.loginForm.userName !== '' &&
-              this.loginForm.password !== ''){
-            this.logining = false;
-            sessionStorage.setItem('userName', this.loginForm.userName);
-            sessionStorage.setItem('custom',false);
-            this.$router.push({path: '/frame'});
-          }else{
-            this.logining = false;
-            this.$alert('用户名或密码错误！', '提示', {
-              confirmButtonText: 'ok'
-            })
-          }
-        }else{
-          console.log('error submit!');
-          return false;
-        }
-      })
-    }
-  }
-};
+  };
 </script>
 
 <style scoped>
-.login-wrap {
-  display: flex;
-  flex-direction: column;
-  margin: 0 auto;
-  width: 100%;
-  min-width: 320px;
-  min-height: 100vh;
-  background-image: url("../assets/img/login-bg.jpg");
-  background-size: cover;
-}
-.login-container {
-  display: flex;
-  flex-direction: column;
-  flex: 1 1 auto;
-}
-.login-page {
-  top: calc(50% - 182.5px);
-  position: absolute;
-  right: 0px;
-  left: 0px;
-  margin: auto;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
-  width: calc(10% + 200px);
-  padding: 35px 35px 0px;
-  background: #ffffff;
-  border: 1px solid #eaeaea;
-  box-shadow: 0 0 25px #cac6c6;
-}
-label.el-checkbox.rememberme {
-  margin: 0px 0px 15px;
-  text-align: left;
-}
+  .login-wrap {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 100%;
+    min-width: 320px;
+    min-height: 100vh;
+    background-image: url("../assets/img/login-bg.jpg");
+    background-size: cover;
+  }
+  .login-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+  }
+  .login-page {
+    top: calc(50% - 182.5px);
+    position: absolute;
+    right: 0px;
+    left: 0px;
+    margin: auto;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    width: calc(10% + 200px);
+    padding: 35px 35px 0px;
+    background: #ffffff;
+    border: 1px solid #eaeaea;
+    box-shadow: 0 0 25px #cac6c6;
+  }
+  label.el-checkbox.rememberme {
+    margin: 0px 0px 15px;
+    text-align: left;
+  }
 </style>

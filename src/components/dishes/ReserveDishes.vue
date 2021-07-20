@@ -24,7 +24,7 @@
                 </el-col>
                 <el-col :span="12" style="text-align:right;">
              
-                <el-button type="text" @click="del(item)">完成订单</el-button>
+                <el-button type="text" @click="del(item.f1)">完成订单</el-button>
                 </el-col>
             </el-row>
             </div>   
@@ -69,9 +69,13 @@
       handleChange(val) {
         console.log(val);
       },
-      del(item)
+      del(f1)
       {
-          this.notices.splice(item.f1,1);
+           this.notices.some((item,i)=>{
+           if(item.f1==f1){
+             this.notices.splice(i,1) 
+             return true
+             }})
       },
       open() {
           let newList = {

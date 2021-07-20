@@ -19,8 +19,8 @@
     >
      <el-menu-item-group>
           <span slot="title"></span>
-          <el-menu-item index="1-1" @click="clickDingDan">查看订单</el-menu-item>
-          <el-menu-item index="1-2" @click="clickGongGao">公告查看</el-menu-item>
+          <el-menu-item index="1-1" @click="clickReserveDishes">查看订单</el-menu-item>
+          <el-menu-item index="1-2" @click="clickCheckNotice">公告查看</el-menu-item>
       </el-menu-item-group>
       
     </el-menu>
@@ -38,13 +38,11 @@ export default {
     handleClose(key, keyPath) {
       console.log(key, keyPath);
     },
-    clickDingDan() {
-      sessionStorage.setItem('aside','reserveDishes');
-      this.reload();
+    clickReserveDishes() {
+      this.$router.push({path: '/frame/reserveDishes'});
     },
-    clickGongGao() {
-      sessionStorage.setItem('aside','checkNotice');
-      this.reload();
+    clickCheckNotice() {
+      this.$router.push({path: '/frame/checkNotice'});
     },
   }
 }

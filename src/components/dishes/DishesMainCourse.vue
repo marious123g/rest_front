@@ -11,7 +11,7 @@
             <el-button size="mini" style="margin-left: 16px;" type="primary" @click="drawer = true">
               查看购物车
             </el-button>
-<!--            <el-button @click="roll">测试锚点</el-button>-->
+            <!--            <el-button @click="roll">测试锚点</el-button>-->
 
             <el-drawer
                 :visible.sync="drawer"
@@ -85,9 +85,9 @@
             </el-col>
           </el-row>
 
-<!--          <div id="test">-->
-<!--            this is a test module-->
-<!--          </div>-->
+          <!--          <div id="test">-->
+          <!--            this is a test module-->
+          <!--          </div>-->
 
         </div>
 

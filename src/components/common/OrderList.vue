@@ -46,7 +46,6 @@
 
 <script>
   export default {
-    inject:['reload'],
     data() {
       return {
         userForm: {
@@ -169,8 +168,7 @@
         sessionStorage.setItem('orderTable',val.table);
         sessionStorage.setItem('orderCost',val.cost);
         sessionStorage.setItem('orderPerson',val.person);
-        sessionStorage.setItem('aside','orderDetail');
-        this.reload();
+        this.$router.push({path: '/frame/orderDetail'});
       },
     },
     

@@ -40,11 +40,11 @@
           确认注册
         </el-button>
         <el-form-item style="width:100%;text-align:center;">
-          <el-link href="./login.html" target="_blank" :underline="false">
+          <el-link href="./login" target="_blank" :underline="false">
             用户登录
           </el-link>
           &nbsp;|&nbsp;
-          <el-link href="./fogetPassword.html" target="_blank" :underline="false">
+          <el-link href="./fogetPassword" target="_blank" :underline="false">
             忘记密码
           </el-link>
 
@@ -106,7 +106,7 @@ export default {
   margin: auto;
   -webkit-border-radius: 5px;
   border-radius: 5px;
-  width: 350px;
+  width: calc(10% + 200px);
   padding: 35px 35px 15px;
   background: #ffffff;
   border: 1px solid #eaeaea;

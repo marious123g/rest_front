@@ -20,10 +20,10 @@
     >
      <el-menu-item-group>
           <span slot="title"></span>
-          <el-menu-item index="1-1" @click="clickDianCan">点餐</el-menu-item>
-          <el-menu-item index="1-2" @click="clickChaKan">查看订单</el-menu-item>
-          <el-menu-item index="1-3" @click="clickShangCai">上菜提示</el-menu-item>
-          <el-menu-item index="1-4" @click="clickGongGao">查看公告</el-menu-item>
+          <el-menu-item index="1-1" @click="clickDishesMainCourse">点餐</el-menu-item>
+          <el-menu-item index="1-2" @click="clickOrderList">查看订单</el-menu-item>
+          <el-menu-item index="1-3" @click="clickServeDishes">上菜提示</el-menu-item>
+          <el-menu-item index="1-4" @click="clickCheckNotice">查看公告</el-menu-item>
       </el-menu-item-group>
       
     </el-menu>
@@ -43,22 +43,17 @@ export default {
     handleClose(key, keyPath) {
       console.log(key, keyPath);
     },
-    clickDianCan() {
-      sessionStorage.setItem('aside','dishesMainCourse');
-      this.reload();
+    clickDishesMainCourse() {
+      this.$router.push({path: '/frame/dishesMainCourse'});
     },
-    clickChaKan() {
-      sessionStorage.setItem('aside','orderList');
-      console.log("???");
-      this.reload();
+    clickOrderList() {
+      this.$router.push({path: '/frame/orderList'});
     },
-    clickShangCai() {
-      sessionStorage.setItem('aside','serveDishes');
-      this.reload();
+    clickServeDishes() {
+      this.$router.push({path: '/frame/serveDishes'});
     },
-    clickGongGao() {
-      sessionStorage.setItem('aside','checkNotice');
-      this.reload();
+    clickCheckNotice() {
+      this.$router.push({path: '/frame/checkNotice'});
     },
   }
 }
