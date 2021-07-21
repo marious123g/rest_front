@@ -70,9 +70,10 @@
               <!--              内边距10，外边距10-->
               <el-card class="dish-card" :body-style="{ padding: '10px'}">
                 <img class="image"
-                     src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png">
+                     :src=item.image>
+
                 <div style="padding: 14px;">
-                  <span>{{ item.name }}     {{ item.price }}元/份</span>
+                  <span>{{ item.name }}   <br>  {{ item.price }}元/份</span>
                   <div class="bottom clearfix">
                     <el-input-number v-model="item.num"
                                      :min="0" class="dish-num-btn" size="mini"
@@ -101,6 +102,7 @@
 <script>
 // import { mapState, mapActions } from 'vuex'
 // import store from "vux/src/vuex/store";
+import {requestData} from "@/ajax";
 
 export default {
   name: "DishesMainCourse",
@@ -226,7 +228,15 @@ export default {
       // this.$store.state.dishData.push(t);
     }
   },
+  mounted() {
+    var require_data=new FormData();
+    requestData("get","main_course_info.json",require_data).then((resp)=>{
+      var cont_data=resp.data;
+      var main_course_list=cont_data["main_course_info"];
+    this.$store.commit('updateMainCourse',main_course_list);
+  })
 
+  }
 }
 </script>
 

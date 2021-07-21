@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+
 import createPersistedState from "vuex-persistedstate"
 // import main_course from "@/components/main_course";
 Vue.use(Vuex)
@@ -9,197 +10,11 @@ export default new Vuex.Store({
         storage: window.sessionStorage
     })],
     state: {
-        snack_info:[
-            {
-                name:"snack1",
-                num:0,
-                price:10
-            },
-            {
-                name:"snack2",
-                num:0,
-                price:11
-            },
-            {
-                name:"snack3",
-                num:0,
-                price:12
-            },
-            {
-                name:"snack4",
-                num:0,
-                price:14
-            },
-            {
-                name:"snack5",
-                num:0,
-                price:15
-            },
-            {
-                name:"snack6",
-                num:0,
-                price:18
-            },
-            {
-                name:"snack7",
-                num:0,
-                price:19
-            },
-            {
-                name:"snack8",
-                num:0,
-                price:20
-            },
-            {
-                name:"snack9",
-                num:0,
-                price:23
-            },
-            {
-                name:"snack10",
-                num:0,
-                price:25
-            },
-            {
-                name:"snack11",
-                num:0,
-                price:33
-            },
-
-        ],
-        drink_info:[
-            {
-                name:"drink1",
-                num:0,
-                price:10
-            },
-            {
-                name:"drink2",
-                num:0,
-                price:11
-            },
-            {
-                name:"drink3",
-                num:0,
-                price:12
-            },
-            {
-                name:"drink4",
-                num:0,
-                price:14
-            },
-            {
-                name:"drink5",
-                num:0,
-                price:15
-            },
-            {
-                name:"drink6",
-                num:0,
-                price:18
-            },
-            {
-                name:"drink7",
-                num:0,
-                price:19
-            },
-            {
-                name:"drink8",
-                num:0,
-                price:20
-            },
-            {
-                name:"drink9",
-                num:0,
-                price:23
-            },
-            {
-                name:"drink10",
-                num:0,
-                price:25
-            },
-            {
-                name:"drink11",
-                num:0,
-                price:33
-            },
-
-        ],
-        main_course_info:[
-            {
-                name:"dish1",
-                num:0,
-                price:10
-            },
-            {
-                name:"dish2",
-                num:0,
-                price:11
-            },
-            {
-                name:"dish3",
-                num:0,
-                price:12
-            },
-            {
-                name:"dish4",
-                num:0,
-                price:14
-            },
-            {
-                name:"dish5",
-                num:0,
-                price:15
-            },
-            {
-                name:"dish6",
-                num:0,
-                price:13
-            },
-            {
-                name:"dish7",
-                num:0,
-                price:13
-            },
-            {
-                name:"dish8",
-                num:0,
-                price:13
-            },
-            {
-                name:"dish9",
-                num:0,
-                price:13
-            },
-            {
-                name:"dish10",
-                num:0,
-                price:13
-            },
-            {
-                name:"dish11",
-                num:0,
-                price:13
-            },
-            {
-                name:"dish12",
-                num:0,
-                price:13
-            },
-            {
-                name:"dish13",
-                num:0,
-                price:13
-            }
-        ],
+        snack_info:[],
+        drink_info:[],
+        main_course_info:[],
         // 购物车数据
-        dishData:[
-            // {
-            //     name:"test",
-            //     price:"114",
-            //     amount:"514",
-            // }
-        ],
+        dishData:[],
 // 总价
         totalPrice: 0
     },
@@ -342,12 +157,24 @@ export default new Vuex.Store({
             state.totalPrice=temp;
         },
 
+        updateMainCourse(state,main_course_list)
+        {
+            state.main_course_info=main_course_list;
+        },
+        updateDrink(state,drink_list)
+        {
+            state.drink_info=drink_list;
+        },
+        updateSnack(state,snack_list)
+        {
+            state.snack_info=snack_list;
+        },
+
+
 
     },
     actions: {
-        increase (context, price) {
-            context.commit('increment', price)
-        }
+
     }
 
 })

@@ -1,0 +1,84 @@
+{
+  "drink_info": [
+    {
+      "name": "康师傅水蜜桃汽水",
+      "num": 0,
+      "price": 5,
+      "image": "https://img2.baidu.com/it/u=760527094,2931649309&fm=26&fmt=auto&gp=0.jpg"
+    },
+    {
+      "name": "康师傅茉莉柚子茶",
+      "num": 0,
+      "price": 5,
+      "image": "https://img0.baidu.com/it/u=4094802080,653961770&fm=26&fmt=auto&gp=0.jpg"
+    },
+    {
+      "name": "水溶C100",
+      "num": 0,
+      "price": 5,
+      "image": "https://img1.baidu.com/it/u=2634479758,2808496930&fm=26&fmt=auto&gp=0.jpg"
+    },
+    {
+      "name": "白桃汽水",
+      "num": 0,
+      "price": 4,
+      "image": "https://img2.baidu.com/it/u=316927945,732375910&fm=224&fmt=auto&gp=0.jpg"
+    },
+    {
+      "name": "康师傅柚子绿茶",
+      "num": 0,
+      "price": 5,
+      "image": "https://img1.baidu.com/it/u=4168459483,446674645&fm=26&fmt=auto&gp=0.jpg"
+    },
+    {
+      "name": "维他柠檬茶",
+      "num": 0,
+      "price": 3,
+      "image": "https://img0.baidu.com/it/u=781452831,1405623795&fm=26&fmt=auto&gp=0.jpg"
+    },
+    {
+      "name": "橙子汽水",
+      "num": 0,
+      "price": 6,
+      "image": "https://img0.baidu.com/it/u=2854915397,4223969819&fm=26&fmt=auto&gp=0.jpg"
+    },
+    {
+      "name": "柠檬芬达",
+      "num": 0,
+      "price": 5,
+      "image": "https://img0.baidu.com/it/u=1900411892,2195745343&fm=26&fmt=auto&gp=0.jpg"
+    },
+    {
+      "name": "红牛",
+      "num": 0,
+      "price": 7,
+      "image": "https://img1.baidu.com/it/u=2646997237,993167184&fm=26&fmt=auto&gp=0.jpg"
+    },
+    {
+      "name": "Capri-sun橙子味",
+      "num": 0,
+      "price": 6,
+      "image": "https://img2.baidu.com/it/u=950400686,863969517&fm=26&fmt=auto&gp=0.jpg"
+    },
+    {
+      "name": "康师傅茉莉蜜茶-500ml",
+      "num": 0,
+      "price": 12,
+      "image": "https://img2.baidu.com/it/u=3710141828,1479998557&fm=26&fmt=auto&gp=0.jpg"
+    },
+    {
+      "name": "果粒橙",
+      "num": 0,
+      "price": 5,
+      "image": "https://img2.baidu.com/it/u=1762048317,3161270364&fm=26&fmt=auto&gp=0.jpg"
+    },
+    {
+      "name": "尖叫",
+      "num": 0,
+      "price": 12,
+      "image": "https://img0.baidu.com/it/u=960380191,1663345970&fm=26&fmt=auto&gp=0.jpg"
+    }
+
+  ]
+
+}

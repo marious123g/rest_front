@@ -67,9 +67,9 @@
               <!--              内边距10，外边距10-->
               <el-card class="dish-card" :body-style="{ padding: '10px'}">
                 <img class="image"
-                     src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png">
+                     :src=item.image>
                 <div style="padding: 14px;">
-                  <span>{{ item.name }}     {{ item.price }}元/份</span>
+                  <span>{{ item.name }}   <br>  {{ item.price }}元/份</span>
                   <div class="bottom clearfix">
                     <el-input-number v-model="item.num"
                                      :min="0" class="dish-num-btn" size="mini"
@@ -94,6 +94,8 @@
 // import { mapState, mapActions } from 'vuex'
 // import store from "vux/src/vuex/store";
 
+import {requestData} from "@/ajax";
+
 export default {
   name: "DishesDrink",
   data() {
@@ -106,16 +108,13 @@ export default {
   computed: {
   },
   methods: {
-
-    isOperated()
-    {
+    isOperated() {
       return true;
     },
     // 这个地方怎么这么费劲呢
     // 表格的第几行（index） 也就意味着在dishTable里第几个元素（大概是吧
     // 经测试这个name可以这样传过来，我真要蚌埠住了
-    deleteCart(index, name)
-    {
+    deleteCart(index, name) {
       console.log("即将删除：" + name)
       // call $store.deleteCartDish
       this.$store.commit('deleteCartDish', name);
@@ -185,14 +184,12 @@ export default {
     //   }
     // },
     // 这里读的item和index是main_course_info的
-    addDrinkToCart(item,index) {
+    addDrinkToCart(item, index) {
       // 遍历main-course-info里菜的数量，也就是主面板那个计数器的值
       // 这里读的是store里的dishData
-      for (let i = 0; i < this.$store.getters.getDishDataLength; i++)
-      {
+      for (let i = 0; i < this.$store.getters.getDishDataLength; i++) {
         // 已经有过记录
-        if (this.$store.state.dishData[i].name === this.$store.state.drink_info[index].name)
-        {
+        if (this.$store.state.dishData[i].name === this.$store.state.drink_info[index].name) {
           // 只改变amount即可
           // call changeAmount(state,name,amount)
           // store里面的changeAmount函数涵盖了数量为0或者不为0的情况
@@ -202,7 +199,7 @@ export default {
             num: this.$store.state.drink_info[index].num,
           }
           // 这样可以把dish的信息传过去
-          this.$store.commit('changeAmount',dish);
+          this.$store.commit('changeAmount', dish);
 
           // this.$store.commit('changeAmount',this.main_course_info[index].name,this.main_course_info[index].num) // 这样传不过去num，你妈的
           return;
@@ -215,11 +212,20 @@ export default {
         price: this.$store.state.drink_info[index].price,
         amount: this.$store.state.drink_info[index].num,
       }
-      this.$store.commit('addToCart',dish)
+      this.$store.commit('addToCart', dish)
       // this.$store.state.dishData.push(t);
-    }
+    },
   },
-
+  mounted()
+  {
+    var require_data = new FormData();
+    requestData("get", "drink_info.json", require_data).then((resp) => {
+      var cont_data = resp.data;
+      var drink_list = cont_data["drink_info"];
+      console.log(drink_list)
+      this.$store.commit('updateDrink', drink_list);
+    })
+  }
 }
 </script>
 

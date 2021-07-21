@@ -67,9 +67,9 @@
               <!--              内边距10，外边距10-->
               <el-card class="dish-card" :body-style="{ padding: '10px'}">
                 <img class="image"
-                     src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png">
+                     :src=item.image>
                 <div style="padding: 14px;">
-                  <span>{{ item.name }}     {{ item.price }}元/份</span>
+                  <span>{{ item.name }} <br> {{ item.price }}元/份</span>
                   <div class="bottom clearfix">
                     <el-input-number v-model="item.num"
                                      :min="0" class="dish-num-btn" size="mini"
@@ -93,6 +93,8 @@
 <script>
 // import { mapState, mapActions } from 'vuex'
 // import store from "vux/src/vuex/store";
+
+import {requestData} from "@/ajax";
 
 export default {
   name: "DishesSnack",
@@ -164,7 +166,8 @@ export default {
     },
 
     // 这里读的item和index是main_course_info的
-    addSnackToCart(item,index) {
+    addSnackToCart(item,index)
+    {
       // 遍历main-course-info里菜的数量，也就是主面板那个计数器的值
       // 这里读的是store里的dishData
       for (let i = 0; i < this.$store.getters.getDishDataLength; i++)
@@ -196,7 +199,17 @@ export default {
       }
       this.$store.commit('addToCart',dish)
       // this.$store.state.dishData.push(t);
-    }
+    },
+
+  },
+  mounted()
+  {
+    var require_data = new FormData();
+    requestData("get", "snack_info.json", require_data).then((resp) => {
+      var cont_data = resp.data;
+      var snack_list = cont_data["snack_info"];
+      this.$store.commit('updateSnack', snack_list);
+    })
   },
 
 }

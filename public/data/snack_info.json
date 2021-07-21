@@ -1,0 +1,142 @@
+{
+  "snack_info": [
+    {
+      "name": "冰粉",
+      "num": 0,
+      "price": 18,
+      "image": "https://qcloud.dpfile.com/pc/-_4g72PlAIkp28KE7c3lzhp5-XWv6GWWJOPCAhCanH2nFkyTec5LXfVc9Lvl-1ZOPhs7dg-nJiEQ7N9gut4mklEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vfCF2ubeXzk49OsGrXt_KYDCngOyCwZK-s3fqawWswzk.jpg"
+    },
+    {
+      "name": "猪猪奶黄包",
+      "num": 0,
+      "price": 12,
+      "image": "https://qcloud.dpfile.com/pc/RHOe8cTuDOVuQJSK0afES7c5-eOgXT1JMYuzU6xgVWWnaWB5pQE-0MENC6SaYjHlPhs7dg-nJiEQ7N9gut4mklEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vfCF2ubeXzk49OsGrXt_KYDCngOyCwZK-s3fqawWswzk.jpg"
+    },
+    {
+      "name": "黄米烙",
+      "num": 0,
+      "price": 22,
+      "image": "http://p1.meituan.net/wmproduct/d3d35867f077b9405cfa906c07abc152408671.png%40120w_120h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20"
+    },
+    {
+      "name": "微笑薯饼",
+      "num": 0,
+      "price": 15,
+      "image": "http://p0.meituan.net/orderdishpic/385afe28a411505c2e5c210be1da0c70314132.jpg%40120w_120h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20"
+    },
+    {
+      "name": "芝士条条",
+      "num": 0,
+      "price": 32,
+      "image": "http://p1.meituan.net/orderdishpic/5a784f5dd75937c402d091829ccc4d98334593.jpg%40120w_120h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20"
+    },
+    {
+      "name": "深海鳕鱼条",
+      "num": 0,
+      "price": 26,
+      "image": "http://p1.meituan.net/orderdishpic/56ada7c683942e7b47ca5db63ff4b303366139.jpg%40120w_120h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20"
+    },
+    {
+      "name": "鸡翅棒",
+      "num": 0,
+      "price": 24,
+      "image": "http://p0.meituan.net/orderdishpic/5c96df99b782241dec5da66ebe4c36f625050.jpg%40120w_120h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20"
+    },
+    {
+      "name": "金丝虾球",
+      "num": 0,
+      "price": 32,
+      "image": "http://p1.meituan.net/orderdishpic/457e301ff7a82c6e9185f28dc1672806398289.jpg%40120w_120h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20"
+    },
+    {
+      "name": "原味薯条",
+      "num": 0,
+      "price": 12,
+      "image": "http://p1.meituan.net/orderdishpic/333b7cefd17899d57298cc351d29d154449895.jpg%40120w_120h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20"
+    },
+    {
+      "name": "香辣薯格",
+      "num": 0,
+      "price": 18,
+      "image": "http://p0.meituan.net/orderdishpic/e5600dcc55a11d8d3fc68a46a05a0dd0394042.jpg%40120w_120h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20"
+    },
+    {
+      "name": "迷你鸡块",
+      "num": 0,
+      "price": 20,
+      "image": "http://p1.meituan.net/orderdishpic/abe9ea0c5ff6dd3dde7c0e40391e83b9339218.jpg%40120w_120h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20"
+    },
+    {
+      "name": "酸奶水果沙拉",
+      "num": 0,
+      "price": 22,
+      "image": "http://p1.meituan.net/orderdishpic/1bef740038d2f8b6b600edc701d3b47b327437.jpg%40120w_120h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20"
+    },
+    {
+      "name": "酱香烤翅",
+      "num": 0,
+      "price": 36,
+      "image": "http://p0.meituan.net/orderdishpic/3241a749f89be295a1d151b0eaa23dfb408094.jpg%40120w_120h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20"
+    },
+    {
+      "name": "坚果沙拉",
+      "num": 0,
+      "price": 26,
+      "image": "http://p1.meituan.net/orderdishpic/f927c3470ee6d391513109810b94f907102561.jpg%40120w_120h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20"
+    },
+    {
+      "name": "美式芝士蛋糕",
+      "num": 0,
+      "price": 16,
+      "image": "http://p1.meituan.net/orderdishpic/3086ae75e065f3aff4e665e6fc323cb7314733.jpg%40120w_120h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20"
+    },
+    {
+      "name": "韩式炸鸡",
+      "num": 0,
+      "price": 29,
+      "image": "http://p0.meituan.net/wmproduct/2de93ca948e770f5482c940cfe463beb117516.jpg%40120w_120h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20"
+    },
+    {
+      "name": "红豆派",
+      "num": 0,
+      "price": 8,
+      "image": "http://p0.meituan.net/wmproduct/e37c4926561697a0b5b4863990cc63ce38968.jpg%40120w_120h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20"
+    },
+    {
+      "name": "田园沙拉",
+      "num": 0,
+      "price": 22,
+      "image": "https://qcloud.dpfile.com/pc/RIA3X2yYMyxODsKGOnAGN4GfKazh73r0LxK2Tizy73YjJnc0UtuLqmobEMP_5CzwPhs7dg-nJiEQ7N9gut4mklEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vfCF2ubeXzk49OsGrXt_KYDCngOyCwZK-s3fqawWswzk.jpg"
+    },
+    {
+      "name": "牛肉丸",
+      "num": 0,
+      "price": 22,
+      "image": "http://p0.meituan.net/orderdishpic/f33203d3c8feeb2e575d85788730ce30344464.jpg%40120w_120h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20"
+    },
+    {
+      "name": "海鲜沙拉",
+      "num": 0,
+      "price": 25,
+      "image": "http://p1.meituan.net/orderdishpic/e203ccbf43e0ae5469b3af4cfbe2d22b346139.jpg%40120w_120h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20"
+    },
+    {
+      "name": "鸡块沙拉",
+      "num": 0,
+      "price": 21,
+      "image": "http://p0.meituan.net/orderdishpic/594d6fc45f7c737b23f76f53412fa287382639.jpg%40120w_120h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20"
+    },
+    {
+      "name": "土豆泥",
+      "num": 0,
+      "price": 12,
+      "image": "https://qcloud.dpfile.com/pc/uXvRR44HcpbsQjkpEI-oWS6rslH6YMa7ykj20G1T7ClKTT7DfA2TTIP91vsaqA3xPhs7dg-nJiEQ7N9gut4mklEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vfCF2ubeXzk49OsGrXt_KYDCngOyCwZK-s3fqawWswzk.jpg"
+    },
+    {
+      "name": "鱿鱼圈",
+      "num": 0,
+      "price": 24,
+      "image": "http://p1.meituan.net/shaitu/04256a6b90b387542d45bbf67ed15aed88194.jpg%40120w_120h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20"
+    }
+  ]
+}
