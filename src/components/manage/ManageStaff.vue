@@ -78,8 +78,22 @@
 </template>
 
 <script>
+import {requestData} from "../../ajax"
 export default {
+  
   methods: {
+    testt()
+      {
+        var require_data=new FormData();
+        requestData("get","managestaff.json",require_data).then((resp)=>{
+          var cont_data=resp.data;
+          this.dataArray=cont_data["dataarray"];
+          this.table_data=cont_data["dataarray"];
+        }
+        )
+        
+      },
+    
     //编辑
     handleEdit(index, row) {
       console.log(index, row);
@@ -129,39 +143,7 @@ export default {
       //var edit = self.edit;
 
       var dataArray = [
-        {
-          name: "打工人1",
-          job:"服务员",
-          id:"71119",
-          account:"admin1",
-          password:"123",
-        },
-        {
-          name: "打工人2",
-          job:"服务员",
-          id:"71119",
-          account:"admin2",
-          password:"123",
-        },{
-          name: "打工人3",
-          job:"厨师",
-          id:"71119",
-          account:"admin3",
-          password:"123",
-        },
-        {
-          name: "打工人4",
-          job:"厨师",
-          id:"71119",
-          account:"admin4",
-          password:"123",
-        },{
-          name: "打工人5",
-          job:"管理员",
-          id:"71119",
-          account:"admin5",
-          password:"123",
-        },
+        
       ];
 
       if (dataArray.length > 0) {
@@ -196,10 +178,12 @@ export default {
   mounted: function() {
     this.initEditAttribute();
     //确保方法在页面渲染后调用
+
     this.$nextTick(function() {
       /////方法
       this.tableRowClassName();
     });
+    this.testt();
   },
   watch: {
     space_color: function() {
@@ -249,25 +233,7 @@ export default {
       ],
       //表格数据
       table_data: [
-        { name: "打工人1",
-          job:"服务员",
-          id:"71119",
-          account:"admin1",
-          password:"123",
-        },
-        {
-          name: "打工人2",
-          job:"服务员",
-          id:"71119",
-          account:"admin2",
-          password:"123",
-        },{
-          name: "打工人3",
-          job:"厨师",
-          id:"71119",
-          account:"admin3",
-          password:"123",
-        },
+       
       ]
     };
   }

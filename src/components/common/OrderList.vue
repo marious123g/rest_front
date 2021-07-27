@@ -45,6 +45,7 @@
 </template>
 
 <script>
+import {requestData} from "../../ajax"
   export default {
     data() {
       return {
@@ -53,102 +54,7 @@
           custom : false,
         },
         tableData: [
-        {
-          table: '1',
-          person: '2',
-          status: '未付款',
-          num: '4',
-          cost: '￥8.80',
-          id: '1',
-        },
-        {
-          table: '1',
-          person: '2',
-          status: '未付款',
-          num: '4',
-          cost: '￥8.80',
-          id: '2',
-        },
-        {
-          table: '1',
-          person: '2',
-          status: '未付款',
-          num: '4',
-          cost: '￥8.80',
-          id: '3',
-        },
-        {
-          table: '1',
-          person: '2',
-          status: '未付款',
-          num: '4',
-          cost: '￥8.80',
-          id: '4',
-        },
-        {
-          table: '1',
-          person: '2',
-          status: '未付款',
-          num: '4',
-          cost: '￥8.80',
-          id: '5',
-        },
-        {
-          table: '1',
-          person: '2',
-          status: '未付款',
-          num: '4',
-          cost: '￥8.80',
-          id: '6',
-        },
-        {
-          table: '1',
-          person: '2',
-          status: '未付款',
-          num: '4',
-          cost: '￥8.80',
-          id: '7',
-        },
-        {
-          table: '1',
-          person: '2',
-          status: '未付款',
-          num: '4',
-          cost: '￥8.80',
-          id: '8',
-        },
-        {
-          table: '1',
-          person: '2',
-          status: '未付款',
-          num: '4',
-          cost: '￥8.80',
-          id: '9',
-        },
-        {
-          table: '1',
-          person: '2',
-          status: '未付款',
-          num: '4',
-          cost: '￥8.80',
-          id: '10',
-        },
-        {
-          table: '1',
-          person: '2',
-          status: '未付款',
-          num: '4',
-          cost: '￥8.80',
-          id: '11',
-        },
-        {
-          table: '1',
-          person: '2',
-          status: '未付款',
-          num: '4',
-          cost: '￥8.80',
-          id: '12',
-        },
+        
         ]
       }
     },
@@ -156,8 +62,24 @@
       this.userForm.userName = sessionStorage.getItem('userName');
       this.userForm.userGroup = sessionStorage.getItem('userGroup');
       this.userForm.staff = sessionStorage.getItem('staff');
+      this.testt();
     },
+     
+    
     methods: {
+      testt()
+      {
+        
+        var require_data=new FormData();
+        requestData("get","orderdetail.json",require_data).then((resp)=>{
+          var cont_data=resp.data;
+          this.tableData=cont_data["tabledata"];
+          
+
+        }
+        )
+        
+      },
       deleteRow(index, rows) {
         rows.splice(index, 1);
       },

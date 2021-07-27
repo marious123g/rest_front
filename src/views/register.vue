@@ -1,7 +1,7 @@
 <template>
   <div class="login-wrap">
     <div class="login-container">
-      <el-form :model="ruleForm2" :rules="rules2"
+      <el-form :model="regFrom" :rules="rules2"
                status-icon
                ref="ruleForm2"
                label-position="left"
@@ -56,6 +56,11 @@
 </template>
 
 <script>
+// import {requestData} from "@/ajax";
+// import axios from "axios";
+
+import {requestData} from "@/ajax";
+
 export default {
   data(){
     return {
@@ -74,6 +79,34 @@ export default {
     }
   },
   methods: {
+    handleSubmit()
+    {
+      if(this.regFrom.password!==this.regFrom.re_password)
+      {
+        this.$alert("两次密码输入不一致，请重新输入");
+      }
+      else
+      {
+        let data = {
+          userName: this.regFrom.username,
+          password: this.regFrom.password,
+        }
+        console.log("准备注册用户" + data.userName);
+        requestData("post", "customerRegister", data).then((resp) => {
+          console.log(resp.data);
+          if (resp.data === 114514) {
+            this.$alert("用户名已存在");
+          }
+          else
+          {
+            this.$alert("注册成功！");
+            /*
+            缺一个跳转到顾客页面
+             */
+          }
+        })
+      }
+    }
 
   }
 };

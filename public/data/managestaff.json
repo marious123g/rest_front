@@ -1,0 +1,37 @@
+{"dataarray":
+[
+    {
+      "name": "打工人1",
+      "job":"服务员",
+      "id":"71119",
+      "account":"admin1",
+      "password":"123"
+    },
+    {
+      "name": "打工人2",
+      "job":"服务员",
+      "id":"71119",
+      "account":"admin2",
+      "password":"123"
+    },{
+      "name": "打工人3",
+      "job":"厨师",
+      "id":"71119",
+      "account":"admin3",
+     " password":"123"
+    },
+    {
+      "name": "打工人4",
+      "job":"厨师",
+      "id":"71119",
+      "account":"admin4",
+      "password":"123"
+    },{
+      "name": "打工人5",
+      "job":"管理员",
+      "id":"71119",
+      "account":"admin5",
+      "password":"123"
+    }
+  ]
+  }

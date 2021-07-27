@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
-
 import createPersistedState from "vuex-persistedstate"
+import axios from "axios";
 // import main_course from "@/components/main_course";
 Vue.use(Vuex)
 export default new Vuex.Store({
@@ -10,6 +10,11 @@ export default new Vuex.Store({
         storage: window.sessionStorage
     })],
     state: {
+        // 放这吧 省事
+        user_name:"marious",
+        table_id:0,
+        person_num:0,
+        // 菜们
         snack_info:[],
         drink_info:[],
         main_course_info:[],
@@ -148,7 +153,8 @@ export default new Vuex.Store({
                 }
             }
         },
-        getTotalPrice (state) {
+        getTotalPrice (state)
+        {
             let temp=0;
             for (let i=0;i<state.dishData.length;i++)
             {
@@ -156,7 +162,6 @@ export default new Vuex.Store({
             }
             state.totalPrice=temp;
         },
-
         updateMainCourse(state,main_course_list)
         {
             state.main_course_info=main_course_list;
@@ -170,7 +175,34 @@ export default new Vuex.Store({
             state.snack_info=snack_list;
         },
 
+        updateUserName(state,name)
+        {
+            state.user_name=name;
+        },
+        updateTableId(state,id)
+        {
+            state.table_id=id;
+        },
+        updatePersonNum(state,num)
+        {
+            state.person_num=num;
+        },
+        confirmOrder(state)
+        {
+            console.log(state.dishData)
+            // 把param直接放在url里面，我真他娘的是个人才
+            // 传用户名、桌号、人数、总价
+            let url="/addOrder?userName="+state.user_name
+                +"&tableId="+state.table_id
+                +"&person="+state.person_num
+                +"&cost=" +state.totalPrice;
 
+            console.log(url);
+            axios.post(url,state.dishData).then((resp)=>{
+                console.log(resp.data)
+            })
+            alert("下单成功")
+        },
 
     },
     actions: {

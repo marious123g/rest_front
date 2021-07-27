@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import {requestData} from "../../ajax"
  export default {
     data() {
          
@@ -48,16 +49,7 @@
         activeNames: ['1'],
         
           notices: [
-              {
-                  
-                  f1:'宫爆鸡丁 水饺 扬州炒饭 紫菜蛋花汤',
-                  f2:' 2021年7月17号',
-              },
-              {
-                 
-                  f1:"三点几了",
-                  f2:"2021年7月17号"
-              },
+          
           
               
 
@@ -65,7 +57,23 @@
       };
      
     },
+    mounted()
+    {
+     this.testt()
+    },
     methods: {
+      testt()
+      {
+        var require_data=new FormData();
+        requestData("get","reservedishes.json",require_data).then((resp)=>{
+          var cont_data=resp.data;
+          
+          this.notices=cont_data["notices"];
+
+        }
+        )
+        
+      },
       handleChange(val) {
         console.log(val);
       },

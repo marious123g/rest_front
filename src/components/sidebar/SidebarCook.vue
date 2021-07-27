@@ -1,8 +1,5 @@
 <template>
-    <div>
-    <div class="isClossTab" @click="isClossTabFun">
-      <i :class="isCollapse?'el-icon-d-arrow-right':'el-icon-d-arrow-left'" ></i>
-    </div>
+  <div>
     <el-image
     style="width: 100%; height:200px; margin:4px 5px 2px 5px;"
     :src="require('../../assets/img/seulogo.png')">

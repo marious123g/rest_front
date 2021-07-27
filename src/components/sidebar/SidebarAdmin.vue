@@ -1,8 +1,5 @@
 <template>
   <div>
-    <div class="isClossTab" @click="isClossTabFun">
-      <i :class="isCollapse?'el-icon-d-arrow-right':'el-icon-d-arrow-left'" ></i>
-    </div>
     <el-image
     style="width: 290px; height:200px; margin:4px 5px 2px 5px;"
     :src="require('../../assets/img/seulogo.png')">
@@ -21,9 +18,8 @@
           <span slot="title"></span>
           <el-menu-item index="1-1" @click="clickManageDishes">菜品管理</el-menu-item>
           <el-menu-item index="1-2" @click="clickManageStaff">员工管理</el-menu-item>
-          <el-menu-item index="1-3" @click="clickManageCheckOut">结账管理</el-menu-item>
-          <el-menu-item index="1-4" @click="clickManageNotice">公告管理</el-menu-item>
-          <el-menu-item index="1-5" @click="clickManageData">经营数据查看</el-menu-item>
+          <el-menu-item index="1-3" @click="clickManageNotice">公告管理</el-menu-item>
+          <el-menu-item index="1-4" @click="clickManageData">经营数据查看</el-menu-item>
       </el-menu-item-group>
       
     </el-menu>
@@ -46,9 +42,6 @@ export default {
     },
     clickManageStaff() {
       this.$router.push({path: '/frame/manageStaff'});
-    },
-    clickManageCheckOut() {
-      this.$router.push({path: '/frame/manageCheckOut'});
     },
     clickManageNotice() {
       this.$router.push({path: '/frame/manageNotice'});

@@ -14,48 +14,74 @@
       :data="tableData"
       style="width: 100%"
       max-height="450px"
-      @row-click="clickRow"
       >
-      <el-table-column v-if="this.userForm.userGroup!='custom'"
-        prop="table"
-        label="桌号"
-        min-width="100px"
-      />
-      <el-table-column v-if="this.userForm.userGroup!='custom'"
-        prop="person"
-        label="人数"
-        min-width="100px"
-      />
       <el-table-column
-        prop="status"
-        label="状态"
-        min-width="100px"
+        prop="name"
+        label="菜名"
+        min-width="75px"
       />
       <el-table-column
         prop="num"
-        label="菜品数量"
-        min-width="100px"
+        label="数量"
+        min-width="75px"
+      />
+      <el-table-column
+        prop="price"
+        label="单价"
+        min-width="75px"
       />
       <el-table-column
         prop="cost"
-        label="总金额"
-        min-width="100px"
+        label="总价"
+        min-width="75px"
       />
     </el-table>
+    <h3 style="margin: 15px">
+      总金额：{{this.totalCost}}
+    </h3>
+    <el-button 
+      type="primary" 
+      style="width:100px" 
+      @click="checkOut" 
+      :loading="logining"
+      v-if="this.status==false"
+      >
+      结账
+    </el-button>
+    <el-button 
+      type="primary" 
+      style="width:100px" 
+      plain
+      disabled
+      v-if="this.status==true"
+      >
+      结账
+    </el-button>
   </div>
 </template>
 
 <script>
+import {requestData} from "../../ajax"
   export default {
     data() {
       return {
+        totalCost: '￥0.00',
+        status: false,
         orderData: {
           table: '',
           status: '',
           num: '',
           cost: '',
           id: '',
-        }
+        },
+        tableData: [
+          {
+            name: '宫保鸡丁',
+            num: '2',
+            price: '5.00',
+            cost: '10.00',
+          },
+        ]
       }
     },
     created() {
@@ -66,11 +92,30 @@
       this.orderData.cost = sessionStorage.getItem('orderCost');
       this.orderData.person = sessionStorage.getItem('orderPerson');
     },
+      mounted()
+    {
+     this.testt()
+    },
     methods: {
+        testt()
+      {
+        var require_data=new FormData();
+        requestData("get","orderdetaile.json",require_data).then((resp)=>{
+          var cont_data=resp.data;
+          this.tableData=cont_data["tabledata"];
+          
+
+        }
+        )
+        
+      },
+  
       backToList() {
-        console.log('what?');
         this.$router.push({path: '/frame/orderList'});
       },
+      checkOut() {
+        this.status = true;
+      }
     }
   }
 </script>

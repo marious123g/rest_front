@@ -35,6 +35,7 @@
 </template>
 
 <script>
+import {requestData} from "../../ajax"
  export default {
     data() {
          
@@ -42,16 +43,7 @@
         activeNames: ['1'],
         
           notices: [
-              {
-                  
-                  f1:'八点了，该摸了',
-                  f2:' 2021年7月17号',
-              },
-              {
-                 
-                  f1:"三点几了",
-                  f2:"2021年7月17号"
-              },
+              
           
               
 
@@ -59,7 +51,23 @@
       };
      
     },
+     mounted()
+    {
+     this.testt()
+    },
     methods: {
+       testt()
+      {
+        var require_data=new FormData();
+        requestData("get","managenotice.json",require_data).then((resp)=>{
+          var cont_data=resp.data;
+          this.notices=cont_data["notices"];
+          
+
+        }
+        )
+        
+      },
       handleChange(val) {
         console.log(val);
       },

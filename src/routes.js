@@ -6,52 +6,22 @@ import fogetPassword from "@/views/fogetPassword.vue"
 import orderList from "@/components/common/OrderList.vue"
 import orderDetail from "@/components/common/OrderDetail.vue"
 import checkNotice from "@/components/common/CheckNotice.vue"
+import changePassword from "@/components/common/ChangePassword.vue"
+import personInfo from "@/components/common/PersonInfo.vue"
 
-import DishesMainCourse from "@/components/dishes/DishesMainCourse.vue"
+import dishesMainCourse from "@/components/dishes/DishesMainCourse.vue"
+import dishesDrink from "@/components/dishes/DishesDrink.vue";
+import dishesSnack from "@/components/dishes/DishesSnack.vue";
+
 import serveDishes from "@/components/dishes/ServeDishes.vue"
 import reserveDishes from "@/components/dishes/ReserveDishes.vue"
 
 import manageDishes from "@/components/manage/ManageDishes.vue"
 import manageNotice from "@/components/manage/ManageNotice.vue"
 import manageStaff from "@/components/manage/ManageStaff.vue"
-import manageCheckOut from "@/components/manage/ManageCheckOut.vue"
 import manageData from "@/components/manage/ManageData.vue"
 
-import DishesDrink from "@/components/dishes/DishesDrink";
-import DishesSnack from "@/components/dishes/DishesSnack";
-import user from "@/views/user";
-import OrderDetail from "@/components/common/OrderDetail";
-import test from "@/views/test";
 var routes=[
-    {
-        path:"/test.html",
-        component:test
-    },
-    {
-        // this might be the url when access
-        path:"/user",
-        // this is the name of .vue
-        component:user,
-        children:[
-            {
-                path:"mainCourse.html",
-                component:DishesMainCourse
-            },
-            {
-                path:"drink.html",
-                component:DishesDrink
-            },
-            {
-                path: "snack.html",
-                component: DishesSnack
-            },
-            {
-                path: "orderDetail.html",
-                component: OrderDetail
-            }
-        ]
-    },
-
     {
         path: "/",
         redirect: "/login",
@@ -73,6 +43,26 @@ var routes=[
         component: frame,
         children: [
             {
+                path:"changePassword",
+                component:changePassword
+            },
+            {
+                path:"personInfo",
+                component:personInfo
+            },
+            {
+                path:"mainCourse",
+                component:dishesMainCourse
+            },
+            {
+                path:"drink",
+                component:dishesDrink
+            },
+            {
+                path: "snack",
+                component: dishesSnack
+            },
+            {
                 path: "orderList",
                 component: orderList,
             },
@@ -84,10 +74,6 @@ var routes=[
                 path: "checkNotice",
                 component: checkNotice,
             },
-            // {
-            //     path: "dishesMainCourse",
-            //     component: dishesMainCourse,
-            // },
             {
                 path: "serveDishes",
                 component: serveDishes,
@@ -107,10 +93,6 @@ var routes=[
             {
                 path: "manageStaff",
                 component: manageStaff,
-            },
-            {
-                path: "manageCheckOut",
-                component: manageCheckOut,
             },
             {
                 path: "manageData",

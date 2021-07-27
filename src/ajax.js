@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const SERVICE_ROOT = "http://localhost:8080/data/";
+const SERVICE_ROOT = "http://localhost:8081/";
 
 const service=axios.create({
     timeout:5000, // 5s超时

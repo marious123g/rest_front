@@ -1,23 +1,45 @@
 <template>
   <div>
     <el-container class="main">
-      <!--          -->
-      <el-aside  width="calc(50% - 500px)" >
+      
+      <el-aside  width="270px" v-if="this.asideStatus=='open'">
+        <div>
+          <el-button 
+            type="text"
+            style="width:100px;margin:0px 0px 0px 20px" 
+            icon="el-icon-back"
+            @click="clickFold"
+            v-if="this.asideStatus=='open'"
+            >
+            收起
+          </el-button>
         <SidebarUser v-if="this.userForm.userGroup=='custom'"/>
         <SidebarAdmin v-if="this.userForm.userGroup=='admin'"/>
         <SidebarCook v-if="this.userForm.userGroup=='cook'"/>
         <SidebarWaiter v-if="this.userForm.userGroup=='waiter'"/>
+        </div>
       </el-aside>
       <el-container>
         <el-header class="main-header">
-          <el-dropdown>
-            <span class="el-dropdown-link">
-                <img src="" alt="">
-            </span>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item >退出登录</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
+          <el-row>
+            <el-col :span="23">
+              <el-button 
+                type="text"
+                style="width:100px" 
+                icon="el-icon-right"
+                @click="clickSpread"
+                v-if="this.asideStatus=='close'"
+                >
+                展开
+              </el-button>
+              <h2>
+                &nbsp;
+              </h2>
+            </el-col>
+            <el-col :span="1">
+              <Head/>
+            </el-col>
+          </el-row>
         </el-header>
         <el-main>
           <router-view/>
@@ -31,10 +53,11 @@
 </template>
 
 <script>
-import SidebarUser from "@/components/sidebar/SidebarUser";
-import SidebarAdmin from "@/components/sidebar/SidebarAdmin";
-import SidebarWaiter from "@/components/sidebar/SidebarWaiter";
-import SidebarCook from "@/components/sidebar/SidebarCook";
+import SidebarUser from "@/components/sidebar/SidebarUser.vue";
+import SidebarAdmin from "@/components/sidebar/SidebarAdmin.vue";
+import SidebarWaiter from "@/components/sidebar/SidebarWaiter.vue";
+import SidebarCook from "@/components/sidebar/SidebarCook.vue";
+import Head from "@/components/common/Head.vue"
 
 export default {
   inject:['reload'],
@@ -43,6 +66,7 @@ export default {
     SidebarAdmin,
     SidebarWaiter,
     SidebarCook,
+    Head,
   },
   data() {
     return {
@@ -54,36 +78,45 @@ export default {
       tabWidth: 200,
       test1: 1,
       intelval: null,
+      asideStatus: '',
     };
   },
   created() {
     this.userForm.userName = sessionStorage.getItem('userName');
+    this.asideStatus = sessionStorage.getItem('asideStatus');
+    this.userForm.userGroup = sessionStorage.getItem('userGroup');
+    if(!this.asideStatus) {
+      this.asideStatus = 'open';
+    }
     if(!this.userForm.userName) {
       this.$router.push({path: '/login'});
       return;
     }
-    if(sessionStorage.getItem('custom') == 'true') {
-        this.userForm.userGroup = 'custom';
-        sessionStorage.setItem('userGroup','custom');
-        this.$router.push({path: '/frame/dishesMainCourse'});
-    }
-    else switch(this.userForm.userName){
-      case 'admin':
-        this.userForm.userGroup = 'admin';
-        sessionStorage.setItem('userGroup','admin');
-        this.$router.push({path: '/frame/manageNotice'});
-        break;
-      case 'cook':
-        this.userForm.userGroup = 'cook';
-        sessionStorage.setItem('userGroup','cook');
-        this.$router.push({path: '/frame/reserveDishes'});
-        break;
-      case 'waiter':
-      default:
-        this.userForm.userGroup = 'waiter';
-        sessionStorage.setItem('userGroup','waiter');
-        this.$router.push({path: '/frame/orderList'});
-        break;
+    if(!sessionStorage.getItem('userGroup'))
+    {
+      if(sessionStorage.getItem('custom') == 'true') {
+          this.userForm.userGroup = 'custom';
+          sessionStorage.setItem('userGroup','custom');
+          this.$router.push({path: '/frame/mainCourse'});
+      }
+      else switch(this.userForm.userName){
+        case 'admin':
+          this.userForm.userGroup = 'admin';
+          sessionStorage.setItem('userGroup','admin');
+          this.$router.push({path: '/frame/manageNotice'});
+          break;
+        case 'cook':
+          this.userForm.userGroup = 'cook';
+          sessionStorage.setItem('userGroup','cook');
+          this.$router.push({path: '/frame/reserveDishes'});
+          break;
+        case 'waiter':
+        default:
+          this.userForm.userGroup = 'waiter';
+          sessionStorage.setItem('userGroup','waiter');
+          this.$router.push({path: '/frame/orderList'});
+          break;
+      }
     }
   },
   methods: {
@@ -93,20 +126,14 @@ export default {
     handleClose(key, keyPath) {
       console.log(key, keyPath);
     },
-
-    isClossTabFun(){
-      clearInterval(this.intelval);
-      if(!this.isCollapse){
-        this.intelval = setInterval(()=>{
-          if(this.tabWidth<= 64)
-            clearInterval(this.intelval);
-          this.tabWidth -= 1;
-        }, 1);
-      }else{
-        this.tabWidth = 200;
-      }
-      this.isCollapse = !this.isCollapse;
-    }
+    clickFold() {
+      sessionStorage.setItem('asideStatus','close');
+      this.reload();
+    },
+    clickSpread() {
+      sessionStorage.setItem('asideStatus','open');
+      this.reload();
+    },
   }
 }
 </script>

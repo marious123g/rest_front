@@ -79,8 +79,24 @@
 </template>
 
 <script>
+import {requestData} from "../../ajax"
 export default {
-  methods: {
+  
+ 
+    methods: {
+       testt()
+      {
+        var require_data=new FormData();
+        requestData("get","managedishes.json",require_data).then((resp)=>{
+          var cont_data=resp.data;
+          
+          this.table_data=cont_data["dataarray"];
+
+        }
+        )
+        
+      },
+ 
     //编辑
     handleEdit(index, row) {
       console.log(index, row);
@@ -130,20 +146,7 @@ export default {
       //var edit = self.edit;
 
       var dataArray = [
-        {
-          name: "我想吃小龙虾1",
-          price: "9.9",
-          describe: "蒜香爆炒，新鲜饱满"
-        },
-        {
-          name: "我想吃小龙虾2",
-          price: "9.9",
-          describe: "蒜香爆炒，新鲜饱满"
-        },{
-          name: "我想吃小龙虾3",
-          price: "9.9",
-          describe: "蒜香爆炒，新鲜饱满"
-        },
+        
       ];
 
       if (dataArray.length > 0) {
@@ -176,12 +179,14 @@ export default {
     }
   },
   mounted: function() {
+    // this.testt()
     this.initEditAttribute();
     //确保方法在页面渲染后调用
     this.$nextTick(function() {
       /////方法
       this.tableRowClassName();
     });
+    this.testt();
   },
   watch: {
     space_color: function() {

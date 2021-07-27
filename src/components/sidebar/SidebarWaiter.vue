@@ -1,31 +1,44 @@
 <template>
-    <div>
-    <div class="isClossTab" @click="isClossTabFun">
-      <i :class="isCollapse?'el-icon-d-arrow-right':'el-icon-d-arrow-left'" ></i>
-    </div>
+  <div>
     <el-image
     style="width: 100%; height:200px; margin:4px 5px 2px 5px;"
     :src="require('../../assets/img/seulogo.png')">
-            </el-image>
-       <div style=" text-align: center;">服务员：007</div>     
-    <el-menu :class="'menu'"
-             default-active="1-4-1"
-             class="el-menu-vertical-demo"
-             @open="handleOpen"
-             @close="handleClose"
-             :collapse="isCollapse"
-             background-color="#545c64"
-             text-color="#fff"
-             active-text-color="#ffd04b"
-    >
-     <el-menu-item-group>
-          <span slot="title"></span>
-          <el-menu-item index="1-1" @click="clickDishesMainCourse">点餐</el-menu-item>
-          <el-menu-item index="1-2" @click="clickOrderList">查看订单</el-menu-item>
-          <el-menu-item index="1-3" @click="clickServeDishes">上菜提示</el-menu-item>
-          <el-menu-item index="1-4" @click="clickCheckNotice">查看公告</el-menu-item>
-      </el-menu-item-group>
-      
+    </el-image>
+    <div style=" text-align: center;">服务员：007</div>     
+    <el-menu
+      default-active="2"
+      class="el-menu-vertical-demo"
+      @open="handleOpen"
+      @close="handleClose"
+      background-color="#545c64"
+      text-color="#fff"
+      active-text-color="#ffd04b"
+      router>
+      <template v-for="item in items">
+        <template v-if="item.subs">
+          <el-submenu :index="item.index" :key="item.index">
+            <template #title>
+              <i :class="item.icon"></i>
+              <span>{{ item.title }}</span>
+            </template>
+            <template v-for="subItem in item.subs">
+              <el-submenu v-if="subItem.subs" :index="subItem.index" :key="subItem.index">
+                <template #title>{{ subItem.title }}</template>
+                <el-menu-item v-for="(threeItem, i) in subItem.subs" :key="i" :index="threeItem.index">
+                  {{ threeItem.title }}</el-menu-item>
+              </el-submenu>
+              <el-menu-item v-else :index="subItem.index" :key="subItem.index">{{ subItem.title }}
+              </el-menu-item>
+            </template>
+          </el-submenu>
+        </template>
+        <template v-else>
+          <el-menu-item :index="item.index" :key="item.index">
+            <i :class="item.icon"></i>
+            <template #title>{{ item.title }}</template>
+          </el-menu-item>
+        </template>
+      </template>
     </el-menu>
     <div style="line-height:800px ;line-width:50px">
     <el-button type="primary" icon="el-icon-shopping-cart-2" style="width: 100px; height:100px"></el-button>
@@ -36,24 +49,52 @@
 <script>
 export default {
   inject:['reload'], 
+  name:"SidebarUser",
+  data() {
+    return {
+      drawer: false,
+      items:[
+        {
+          index:"3",
+          title:"点餐",
+          subs:[
+            {
+              index: "/frame/mainCourse",
+              title: "主菜",
+            },
+            {
+              index: "/frame/snack",
+              title: "小吃",
+            },
+            {
+              index: "/frame/drink",
+              title: "饮料",
+            },
+
+          ]
+        },
+        {
+          index: "/frame/orderList",
+          title: "查看订单"
+        },
+        {
+          index: "/frame/serveDishes",
+          title: "上菜提示"
+        },
+        {
+          index: "/frame/checkNotice",
+          title: "查看公告"
+        },
+        
+      ]
+    }
+  },
   methods: {
     handleOpen(key, keyPath) {
       console.log(key, keyPath);
     },
     handleClose(key, keyPath) {
       console.log(key, keyPath);
-    },
-    clickDishesMainCourse() {
-      this.$router.push({path: '/frame/dishesMainCourse'});
-    },
-    clickOrderList() {
-      this.$router.push({path: '/frame/orderList'});
-    },
-    clickServeDishes() {
-      this.$router.push({path: '/frame/serveDishes'});
-    },
-    clickCheckNotice() {
-      this.$router.push({path: '/frame/checkNotice'});
     },
   }
 }

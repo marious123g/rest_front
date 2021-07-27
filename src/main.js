@@ -17,6 +17,10 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 import store from "./store.js";
 
+import axios from "axios";
+Vue.prototype.$axios=axios
+axios.defaults.baseURL='http://localhost:8081'
+
 Vue.config.productionTip = false
 //这个变量名其实可以不叫这个，不过建议不要瞎搞
 var router =new VueRouter({
