@@ -4,7 +4,7 @@
     style="width: 100%; height:200px; margin:4px 5px 2px 5px;"
     :src="require('../../assets/img/seulogo.png')">
     </el-image>
-    <div style=" text-align: center;">服务员：007</div>     
+    <div style=" text-align: center;">服务员：{{ this.$store.state.user_name }}</div>
     <el-menu
       default-active="2"
       class="el-menu-vertical-demo"
@@ -40,9 +40,7 @@
         </template>
       </template>
     </el-menu>
-    <div style="line-height:800px ;line-width:50px">
-    <el-button type="primary" icon="el-icon-shopping-cart-2" style="width: 100px; height:100px"></el-button>
-    </div>
+
   </div>
 </template>
 
@@ -74,7 +72,7 @@ export default {
           ]
         },
         {
-          index: "/frame/orderList",
+          index: "/frame/waiterOrderList",
           title: "查看订单"
         },
         {

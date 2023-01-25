@@ -10,16 +10,16 @@
            
             <el-collapse v-model="activeNames" @change="handleChange">
                 <el-collapse-item  name=2>
-                    <span>{{item.f1}}</span>
+                    <span>{{item.content}}</span>
                 </el-collapse-item>      
             </el-collapse>
 
              <div >
             <el-row>
-                <el-col :span="12">
-                <span>{{ item.f2 }}</span>
+                <el-col :span="20">
+                <span>{{ item.time }}</span>
                 </el-col>
-                <el-col :span="12" style="text-align:right;">
+                <el-col :span="4" style="text-align:right;">
               
                 </el-col>
             </el-row>
@@ -41,12 +41,7 @@ export default {
       return {
         activeNames: ['1'],
         
-          notices: [
-            
-          
-              
-
-          ]
+          notices: []
       };
      
     },
@@ -58,14 +53,15 @@ export default {
         testt()
       {
         var require_data=new FormData();
-        requestData("get","checknotice.json",require_data).then((resp)=>{
+        requestData("get","getmanagenotice",require_data).then((resp)=>{
           var cont_data=resp.data;
-          this.notices=cont_data["notices"];
-          
-
-        }
-        )
-        
+          this.notices=cont_data;
+          for (let i=0;i<this.notices.length;i++)
+          {
+            var date= new Date(this.notices[i].time)
+            this.notices[i].time=date.toLocaleString()
+          }
+        });
       },
       handleChange(val) {
         console.log(val);

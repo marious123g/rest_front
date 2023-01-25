@@ -229,11 +229,18 @@ export default {
     },
     confirmOrder()
     {
-      // tmd，放在store里自己用还就不行，贱不贱呐
-      this.$store.commit('getTotalPrice');
-      this.$store.commit('confirmOrder');
-      // 购物车清零
-
+      console.log(this.$store.state.dishData.length)
+      if(this.$store.state.dishData.length===0)
+      {
+        this.$alert("您还未点餐！");
+      }
+      else
+      {// tmd，放在store里自己用还就不行，贱不贱呐
+        this.$store.commit('getTotalPrice');
+        this.$store.commit('confirmOrder');
+        // 购物车清零
+        this.$store.commit('clearCart');
+      }
     },
     getBaseInfo()
     {

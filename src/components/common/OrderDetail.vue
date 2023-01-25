@@ -1,17 +1,21 @@
 <template>
   <div>
-    <h2>
-      <el-button type="text" icon="el-icon-d-arrow-left" @click="backToList">
+    <div class="go-back-btn">
+      <el-button type="text" icon="el-icon-d-arrow-left" @click="backToList">>
         <font size="4">返回 &nbsp;</font>
       </el-button>
-      订单详情：
-      桌号：{{this.orderData.table}}；
-      人数：{{this.orderData.person}}；
-      菜品数量：{{this.orderData.num}}；
-      订单ID：{{this.orderData.id}}；
-    </h2>
+    </div>
+    <div class="order-detail">
+      <h2>订单详情</h2>
+      <div class="order-detail">
+      桌号：{{this.$store.state.table_id}}
+      人数：{{this.$store.state.person_num}}
+      菜品数量：{{this.orderDishList.length}}
+      订单ID：{{orderId}}
+        </div>
+    </div>
     <el-table
-      :data="tableData"
+      :data="orderDishList"
       style="width: 100%"
       max-height="450px"
       >
@@ -21,7 +25,7 @@
         min-width="75px"
       />
       <el-table-column
-        prop="num"
+        prop="amount"
         label="数量"
         min-width="75px"
       />
@@ -31,83 +35,44 @@
         min-width="75px"
       />
       <el-table-column
-        prop="cost"
-        label="总价"
+        prop="status"
+        label="状态"
         min-width="75px"
       />
     </el-table>
-    <h3 style="margin: 15px">
-      总金额：{{this.totalCost}}
-    </h3>
-    <el-button 
-      type="primary" 
-      style="width:100px" 
-      @click="checkOut" 
-      :loading="logining"
-      v-if="this.status==false"
-      >
-      结账
-    </el-button>
-    <el-button 
-      type="primary" 
-      style="width:100px" 
-      plain
-      disabled
-      v-if="this.status==true"
-      >
-      结账
-    </el-button>
   </div>
 </template>
 
 <script>
-import {requestData} from "../../ajax"
+import {requestData} from "@/ajax"
   export default {
     data() {
       return {
-        totalCost: '￥0.00',
-        status: false,
-        orderData: {
-          table: '',
-          status: '',
-          num: '',
-          cost: '',
-          id: '',
-        },
-        tableData: [
-          {
-            name: '宫保鸡丁',
-            num: '2',
-            price: '5.00',
-            cost: '10.00',
-          },
-        ]
+        totalCost: 0,
+        orderId:0,
+        orderDishList: []
       }
     },
     created() {
-      this.orderData.id = sessionStorage.getItem('orderID');
-      this.orderData.table = sessionStorage.getItem('orderTable');
-      this.orderData.status = sessionStorage.getItem('orderStatus');
-      this.orderData.num = sessionStorage.getItem('orderNum');
-      this.orderData.cost = sessionStorage.getItem('orderCost');
-      this.orderData.person = sessionStorage.getItem('orderPerson');
+      this.orderId = sessionStorage.getItem('orderID');
+      this.totalCost = sessionStorage.getItem('cost');
     },
       mounted()
     {
-     this.testt()
+     this.getOrderDish()
     },
     methods: {
-        testt()
+      getOrderDish()
       {
-        var require_data=new FormData();
-        requestData("get","orderdetaile.json",require_data).then((resp)=>{
-          var cont_data=resp.data;
-          this.tableData=cont_data["tabledata"];
-          
-
+        let data = {
+          orderId: this.orderId,
         }
+        requestData("post","findOrderDish",data).then((resp)=>{
+              var cont_data=resp.data;
+              this.orderDishList=cont_data;
+            }
         )
-        
+
       },
   
       backToList() {
@@ -122,5 +87,8 @@ import {requestData} from "../../ajax"
 
 
 <style scoped>
-
+.order-detail{
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
 </style>

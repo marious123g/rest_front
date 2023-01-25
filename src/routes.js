@@ -21,6 +21,9 @@ import manageNotice from "@/components/manage/ManageNotice.vue"
 import manageStaff from "@/components/manage/ManageStaff.vue"
 import manageData from "@/components/manage/ManageData.vue"
 
+import WaiterOrderList from "@/components/common/WaiterOrderList";
+import WaiterOrderDetail from "@/components/common/WaiterOrderDetail";
+
 var routes=[
     {
         path: "/",
@@ -98,6 +101,14 @@ var routes=[
                 path: "manageData",
                 component: manageData,
             },
+            {
+                path: "waiterOrderList",
+                component: WaiterOrderList
+            },
+            {
+                path: "waiterOrderDetail",
+                component: WaiterOrderDetail
+            }
         ]
     },
 ]

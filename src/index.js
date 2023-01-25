@@ -3,9 +3,7 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 
 const path = require('path')
-// 由于历史原因，本项目的axios通信有两种方式：
-// 1. 直接使用axios.post 配置在这里
-// 2. 使用封装的request 见ajax.js
+
 module.exports = {
     dev: {
 
@@ -14,7 +12,7 @@ module.exports = {
         assetsPublicPath: '/',
         proxyTable: {
             '/api': {
-                target: 'http://47.97.171.52:8001',//本地地址
+                target: 'http://localhost:8081',//本地地址
                 // target: 'http://gopikachu.top:8081',// 线上部署地址（marious注；要用应该必须解决跨域问题
                 changeOrigin: true,
                 pathRewrite: {

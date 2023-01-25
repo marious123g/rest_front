@@ -1,35 +1,35 @@
 <template>
   <div>
     <el-container class="main">
-      
+
       <el-aside  width="270px" v-if="this.asideStatus=='open'">
         <div>
-          <el-button 
-            type="text"
-            style="width:100px;margin:0px 0px 0px 20px" 
-            icon="el-icon-back"
-            @click="clickFold"
-            v-if="this.asideStatus=='open'"
-            >
+          <el-button
+              type="text"
+              style="width:100px;margin:0px 0px 0px 20px"
+              icon="el-icon-back"
+              @click="clickFold"
+              v-if="this.asideStatus=='open'"
+          >
             收起
           </el-button>
-        <SidebarUser v-if="this.userForm.userGroup=='custom'"/>
-        <SidebarAdmin v-if="this.userForm.userGroup=='admin'"/>
-        <SidebarCook v-if="this.userForm.userGroup=='cook'"/>
-        <SidebarWaiter v-if="this.userForm.userGroup=='waiter'"/>
+          <SidebarUser v-if="this.asideMode=='custom'"/>
+          <SidebarAdmin v-if="this.asideMode=='admin'"/>
+          <SidebarCook v-if="this.asideMode=='cook'"/>
+          <SidebarWaiter v-if="this.asideMode=='waiter'"/>
         </div>
       </el-aside>
       <el-container>
         <el-header class="main-header">
           <el-row>
             <el-col :span="23">
-              <el-button 
-                type="text"
-                style="width:100px" 
-                icon="el-icon-right"
-                @click="clickSpread"
-                v-if="this.asideStatus=='close'"
-                >
+              <el-button
+                  type="text"
+                  style="width:100px"
+                  icon="el-icon-right"
+                  @click="clickSpread"
+                  v-if="this.asideStatus=='close'"
+              >
                 展开
               </el-button>
               <h2>
@@ -78,13 +78,14 @@ export default {
       tabWidth: 200,
       test1: 1,
       intelval: null,
+      asideMode:'',
       asideStatus: '',
     };
   },
   created() {
-    this.userForm.userName = sessionStorage.getItem('userName');
-    this.asideStatus = sessionStorage.getItem('asideStatus');
-    this.userForm.userGroup = sessionStorage.getItem('userGroup');
+    this.userForm.userName = this.$store.state.user_name;
+    this.asideStatus = this.$store.state.aside_status;
+    this.userForm.userGroup = this.$store.state.user_group;
     if(!this.asideStatus) {
       this.asideStatus = 'open';
     }
@@ -92,28 +93,29 @@ export default {
       this.$router.push({path: '/login'});
       return;
     }
-    if(!sessionStorage.getItem('userGroup'))
+    this.asideMode = this.$store.state.aside_mode;
+    if(!this.asideMode)
     {
-      if(sessionStorage.getItem('custom') == 'true') {
-          this.userForm.userGroup = 'custom';
-          sessionStorage.setItem('userGroup','custom');
+      switch(this.userForm.userGroup) {
+        case 'custom':
+          this.$store.commit('updateAsideMode','custom');
+          this.asideMode = 'custom';
           this.$router.push({path: '/frame/mainCourse'});
-      }
-      else switch(this.userForm.userName){
+          break;
         case 'admin':
-          this.userForm.userGroup = 'admin';
-          sessionStorage.setItem('userGroup','admin');
+          this.$store.commit('updateAsideMode','admin');
+          this.asideMode = 'admin';
           this.$router.push({path: '/frame/manageNotice'});
           break;
         case 'cook':
-          this.userForm.userGroup = 'cook';
-          sessionStorage.setItem('userGroup','cook');
+          this.$store.commit('updateAsideMode','cook');
+          this.asideMode = 'cook';
           this.$router.push({path: '/frame/reserveDishes'});
           break;
         case 'waiter':
         default:
-          this.userForm.userGroup = 'waiter';
-          sessionStorage.setItem('userGroup','waiter');
+          this.$store.commit('updateAsideMode','waiter');
+          this.asideMode = 'waiter';
           this.$router.push({path: '/frame/orderList'});
           break;
       }
@@ -127,11 +129,11 @@ export default {
       console.log(key, keyPath);
     },
     clickFold() {
-      sessionStorage.setItem('asideStatus','close');
+      this.$store.commit('updateAsideStatus','close');
       this.reload();
     },
     clickSpread() {
-      sessionStorage.setItem('asideStatus','open');
+      this.$store.commit('updateAsideStatus','open');
       this.reload();
     },
   }

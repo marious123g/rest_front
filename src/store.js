@@ -11,7 +11,10 @@ export default new Vuex.Store({
     })],
     state: {
         // 放这吧 省事
-        user_name:"marious",
+        user_name:"",
+        user_group:"",
+        aside_status:"",
+        aside_mode:"",
         table_id:0,
         person_num:0,
         // 菜们
@@ -153,6 +156,18 @@ export default new Vuex.Store({
                 }
             }
         },
+        clearCart(state)
+        {
+          //  面板清零
+          for (let i=0;i<state.main_course_info.length;i++)
+              state.main_course_info[i].num=0;
+          for (let i=0;i<state.drink_info.length;i++)
+              state.drink_info[i].num=0;
+          for (let i=0;i<state.snack_info.length;i++)
+              state.snack_info[i].num=0;
+        //  购物车列表清空
+            state.dishData=[];
+        },
         getTotalPrice (state)
         {
             let temp=0;
@@ -179,6 +194,18 @@ export default new Vuex.Store({
         {
             state.user_name=name;
         },
+        updateUserGroup(state,group)
+        {
+            state.user_group=group;
+        },
+        updateAsideStatus(state,status)
+        {
+            state.aside_status=status;
+        },
+        updateAsideMode(state,mode)
+        {
+            state.aside_mode=mode;
+        },
         updateTableId(state,id)
         {
             state.table_id=id;
@@ -190,6 +217,7 @@ export default new Vuex.Store({
         confirmOrder(state)
         {
             console.log(state.dishData)
+            // 以requestParam提交的本质是写在url里
             // 把param直接放在url里面，我真他娘的是个人才
             // 传用户名、桌号、人数、总价
             let url="/addOrder?userName="+state.user_name

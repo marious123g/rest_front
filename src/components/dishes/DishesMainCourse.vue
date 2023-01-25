@@ -111,6 +111,8 @@
     <el-dialog title="请填入用餐信息"
                width="30%"
                center
+               :close-on-click-modal="false"
+               :show-close="false"
                :visible.sync="dialogFormVisible">
       <el-form>
         <el-form-item label="用餐人数" :label-width="formLabelWidth">
@@ -121,7 +123,6 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
         <el-button type="primary" @click="getBaseInfo">确 定</el-button>
       </div>
     </el-dialog>
@@ -156,6 +157,7 @@ export default {
   },
   mounted() {
     console.log(this.$store.state.user_name)
+    // 流氓.jpg
     if(this.$store.state.table_id===0)
     {
       this.dialogFormVisible=true;
@@ -168,19 +170,33 @@ export default {
   methods: {
     confirmOrder()
     {
-      // tmd，放在store里自己用还就不行，贱不贱呐
+      console.log(this.$store.state.dishData.length)
+      if(this.$store.state.dishData.length===0)
+      {
+        this.$alert("您还未点餐！");
+      }
+      else
+      {// tmd，放在store里自己用还就不行，贱不贱呐
       this.$store.commit('getTotalPrice');
       this.$store.commit('confirmOrder');
       // 购物车清零
-
+      this.$store.commit('clearCart');
+      }
     },
 
     getBaseInfo()
     {
       // 当妹有填入的桌号的时候 弹窗
+      if(this.personNum===0||this.tableId===0)
+      {
+        this.$alert("请正确填写桌号和人数信息")
+        this.dialogFormVisible=true;
+      }
+      else {
       this.$store.commit('updatePersonNum', this.personNum);
       this.$store.commit('updateTableId', this.tableId);
       this.dialogFormVisible=false;
+      }
     },
 
     getMainCourseList()

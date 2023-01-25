@@ -2,7 +2,7 @@
 <el-container >
   <el-header style="text-align:right ; background-color:#545c64;
     color: #FFF;">
-  <el-button type="primary" @click="open">发布公告</el-button>
+  <el-button type="primary" @click="fresh">刷新</el-button>
   </el-header>
   <template>
   <el-main >
@@ -16,15 +16,17 @@
            
                     <span>{{item.f1}}</span>
               
+                    <el-row>
+              <span>数量：{{item.f2}}</span></el-row>
 
              <div >
             <el-row>
                 <el-col :span="12">
-                <span>{{ item.f2 }}</span>
+                <span>桌号：{{ item.f3 }}</span>
                 </el-col>
                 <el-col :span="12" style="text-align:right;">
              
-                <el-button type="text" @click="del(item.f1)">完成订单</el-button>
+                <el-button type="text" @click="del(item.f1,item.f4)">完成订单</el-button>
                 </el-col>
             </el-row>
             </div>   
@@ -43,6 +45,7 @@
 <script>
 import {requestData} from "../../ajax"
  export default {
+   inject:['reload'],
     data() {
          
       return {
@@ -65,55 +68,31 @@ import {requestData} from "../../ajax"
       testt()
       {
         var require_data=new FormData();
-        requestData("get","reservedishes.json",require_data).then((resp)=>{
+        requestData("get","getReserveDishes",require_data).then((resp)=>{
           var cont_data=resp.data;
           
-          this.notices=cont_data["notices"];
+          this.notices=cont_data;
 
-        }
-        )
+        });
         
       },
       handleChange(val) {
         console.log(val);
       },
-      del(f1)
+      
+      del(f1,f4)
       {
-           this.notices.some((item,i)=>{
-           if(item.f1==f1){
-             this.notices.splice(i,1) 
-             return true
-             }})
+        let data = {
+          orderID: f4,
+          name: f1,
+        }
+        requestData("post","changeReserveDishes",data).then(()=>{});
+        this.reload();
       },
-      open() {
-          let newList = {
-            
-            f1:" ",
-            f2:"2021年7月17号"
-            }
-        this.$prompt('请输入公告内容', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-        }).then(({ value }) => {
-          newList.f1=value,
-
-
-           this.notices.push(newList);
-        this.$notify({
-          title: '有订单拉',
-          message: value,
-          type: 'success'
-        });
-        console.log(this.listTable)
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '取消输入'
-          });       
-        });
-            
-       
-       }
+      fresh()
+      {
+        this.testt();
+      },
     }
   }
 </script>

@@ -31,20 +31,15 @@
                     suffix-icon="el-icon-unlock">
           </el-input>
         </el-form-item>
-        <el-checkbox
-            v-model="checked"
-            class="rememberme">
-          记住密码
-        </el-checkbox>
         <el-button type="primary" style="width:100%;" @click="handleSubmit" :loading="logining">
           确认注册
         </el-button>
         <el-form-item style="width:100%;text-align:center;">
-          <el-link href="./login" target="_blank" :underline="false">
+          <el-link @click="toLogin" target="_blank" :underline="false">
             用户登录
           </el-link>
           &nbsp;|&nbsp;
-          <el-link href="./fogetPassword" target="_blank" :underline="false">
+          <el-link @click="toForget" target="_blank" :underline="false">
             忘记密码
           </el-link>
 
@@ -79,6 +74,14 @@ export default {
     }
   },
   methods: {
+    toLogin()
+    {
+      this.$router.push({path: '/login'});
+    },
+    toForget()
+    {
+      this.$router.push({path: '/fogetPassword'});
+    },
     handleSubmit()
     {
       if(this.regFrom.password!==this.regFrom.re_password)
@@ -100,9 +103,7 @@ export default {
           else
           {
             this.$alert("注册成功！");
-            /*
-            缺一个跳转到顾客页面
-             */
+            this.$router.push({path: '/login'});
           }
         })
       }

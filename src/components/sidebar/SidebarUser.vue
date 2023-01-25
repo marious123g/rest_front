@@ -7,9 +7,8 @@
         style="width: 100%; height:200px; margin:4px 5px 2px 5px;"
         :src="require('../../assets/img/seulogo.png')">
     </el-image>
-    <div style=" text-align: center;">桌号：001</div>
-    <div style=" text-align: center;">人数：3</div>
-    <div style=" text-align: center;">服务员：007</div>
+    <div style=" text-align: center;">桌号：{{this.$store.state.table_id}}</div>
+    <div style=" text-align: center;">人数：{{ this.$store.state.person_num }}</div>
     <el-menu
       default-active="2"
       class="el-menu-vertical-demo"

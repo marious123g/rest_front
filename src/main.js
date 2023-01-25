@@ -19,6 +19,7 @@ import store from "./store.js";
 
 import axios from "axios";
 Vue.prototype.$axios=axios
+// 后续使用url默认会在头部加上这个
 axios.defaults.baseURL='http://localhost:8081'
 
 Vue.config.productionTip = false

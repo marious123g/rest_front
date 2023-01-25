@@ -31,7 +31,6 @@
         </el-card>
               </div>
       </el-col>  
-      
       </div>
       </el-row>
   </el-main>

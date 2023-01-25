@@ -2,7 +2,7 @@
     <el-container>
   <el-aside width="375px" style="text-align: center;font-size:25px;line-height: 150px;">
       <div>
-          欢迎你，xxx  
+          欢迎你，{{this.$store.state.user_name}}  
       </div>
      
         <el-upload
@@ -106,10 +106,12 @@ export default {
      this.testt()
     },
     methods: {
-       testt()
+      testt()
       {
-        var require_data=new FormData();
-        requestData("get","personinfo.json",require_data).then((resp)=>{
+        let data = {
+          userName : this.$store.state.user_name
+        };
+        requestData("get","getpersoninfo",data).then((resp)=>{
           var cont_data=resp.data;
           this.imageUrl=cont_data["imageUrl"];
           this.email=cont_data["email"];
@@ -118,9 +120,7 @@ export default {
           this.phonenum=cont_data["phonenum"];
           this.id=cont_data["id"];
           this.registerdate=cont_data["registerdate"];
-        }
-        )
-        
+        });
       },
       handleAvatarSuccess(res, file) {
         this.imageUrl = URL.createObjectURL(file.raw);

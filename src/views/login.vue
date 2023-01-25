@@ -23,11 +23,6 @@
                     placeholder="密码">
           </el-input>
         </el-form-item>
-        <el-checkbox
-            v-model="remember"
-            class="rememberme">
-          记住密码
-        </el-checkbox>
         <el-button type="primary" style="width:100%;margin:0px auto 15px" @click="customLogin" :loading="logining">
           顾客登录
         </el-button>
@@ -35,11 +30,11 @@
           员工登录
         </el-button>
         <el-form-item style="width:100%;text-align:center;">
-          <el-link href="./register" target="_blank" :underline="false">
+          <el-link @click="toRegister" target="_blank" :underline="false">
             新用户注册
           </el-link>
           &nbsp;|&nbsp;
-          <el-link href="./fogetPassword" target="_blank" :underline="false">
+          <el-link @click="toForget" target="_blank" :underline="false">
             忘记密码
           </el-link>
 
@@ -59,9 +54,8 @@ export default {
     return {
       logining: false,
       loginForm: {
-        userName: 'admin',
-        password: '123456',
-        remember: false
+        userName: '',
+        password: '',
       },
       rules1: {
         userName: [{required: true, message: '请输入用户名', trigger: 'blur'}],
@@ -71,11 +65,20 @@ export default {
   },
   created()
   {
-    sessionStorage.setItem('userGroup', '');
-    sessionStorage.setItem('userName', '');
-    sessionStorage.setItem('asideStatus', '');
+    this.$store.commit('userGroup','');
+    this.$store.commit('userName','');
+    this.$store.commit('asideStatus','');
   },
   methods: {
+    toRegister()
+    {
+      this.$router.push({path: '/register'});
+    },
+    toForget()
+    {
+      this.$router.push({path: '/fogetPassword'});
+    },
+    
     customLogin()
     {
       this.$refs.loginForm.validate((valid) =>
@@ -88,11 +91,9 @@ export default {
             var cont_data = resp.data;
             if (cont_data == true)
             {
-              sessionStorage.setItem('userName', this.loginForm.userName);
-              sessionStorage.setItem('custom', true);
               // 把顾客的用户名传过去
-              this.$store.commit('updateUserName',this.loginForm.userName)
-
+              this.$store.commit('updateUserName',this.loginForm.userName);
+              this.$store.commit('updateUserGroup','custom');
               this.$router.push({path: '/frame'});
             } else
             {
@@ -121,9 +122,12 @@ export default {
             var cont_data = resp.data;
             if (cont_data == true)
             {
-              sessionStorage.setItem('userName', this.loginForm.userName);
-              sessionStorage.setItem('custom', false);
-              this.$router.push({path: '/frame'});
+              this.$store.commit('updateUserName',this.loginForm.userName);
+              requestData("post", "getUserGroup", this.loginForm).then((resp) =>
+              {
+                this.$store.commit('updateUserGroup',resp.data);
+                this.$router.push({path: '/frame'});
+              });
             } else
             {
               this.logining = false;
